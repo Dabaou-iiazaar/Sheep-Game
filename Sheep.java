@@ -47,7 +47,7 @@ public class Sheep {
     private boolean isCaught;
     
     private int time;
-    private final int maxTime = 300;
+    private final int maxTime = 200;
     
     public void doMovement(int px,int py){
     	
@@ -57,6 +57,10 @@ public class Sheep {
     		if (time < maxTime){
     			//regular move
     			dx += vx;
+    			
+    			dx = Math.max((double)halfsize, Math.min((double)(8000 - halfsize), dx));
+    			dy= Math.max((double)halfsize, Math.min((double)(600 - halfsize), dy));
+    			
     			dy += vy;
     			slowDown();
 	
@@ -154,4 +158,3 @@ public class Sheep {
     
     
 }
-
