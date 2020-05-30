@@ -1,160 +1,142 @@
-//IMPORTING
 import java.awt.*;
-import java.awt.geom.*;
+import java.awt.Font;
 import java.awt.event.*;
+import java.awt.geom.*;
 import javax.swing.*;
-import javax.imageio.*;
-import java.awt.image.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.awt.Rectangle;
-import java.awt.Image;
-import java.io.*;
+import java.awt.image.*; 
+import java.io.*; 
+import javax.imageio.*; 
+import java.util.*;
+import java.lang.Math;
 
-public class Sheep {
-	
+public class Player {
 
-	
-	private int x, y;
-	private final int halfsize = 10;
-	
-	
-	//real double coordinates
-	private double dx,dy,vx,vy;
-	private final int maxSpeed = 5;
-	private final int panicSpeed = 10;
-	
-	
-	private double ang;
-	
-	
-	
-	
-	
-    public Sheep(int X, int Y) {
-    	x=X;
-    	y=Y;
-    	dx = (double)x;
-    	dy = (double)y;
-    	isCaught = false;
-    	isScattering = false;
-    	vx = 0;
-    	vy = 0;
-    	time = randint(0,maxTime);
-    	
-    }
-    
-    private boolean isCaught;
-    
-    private int time;
-    private final int maxTime = 200;
-    
-    public void doMovement(int px,int py){
-    	
-    	
-    	if (!isCaught){
-    		time++;
-    		if (time < maxTime){
-    			//regular move
-    			dx += vx;
-    			
-    			dx = Math.max((double)halfsize, Math.min((double)(8000 - halfsize), dx));
-    			dy= Math.max((double)halfsize, Math.min((double)(600 - halfsize), dy));
-    			
-    			dy += vy;
-    			slowDown();
-	
-    		}
-    		else{
-    			//make new vxvy
-    			time = 0;
-    			isScattering = false;
-    			vx = randouble(-1*maxSpeed, maxSpeed - 1) + Math.random();
-    			vy = randouble(-1*maxSpeed, maxSpeed - 1) + Math.random();
-    		}
-    		
-	
-    	}
-    	else{
-    		
-    		dx = (double)px;
-    		dy = (double)py;
-    		vx = 0;
-    		vy = 0;
-    		time = 0;
-    		
-    	}
-    	
-    	x = (int)dx;
-    	y = (int)dy;
-    	
-    }
-    
-    public void setCaught(boolean val){
-    	isCaught = val;
+ private int x,y;
+ 
+ public int getX(){
+  return x;
+ }
+ public int getY(){
+  return y;
+ }
+ 
+ private double ang;
+ 
+ private final int speed = 4;
+ private final int halfsize = 20;
+ private int shotRange=30;
+
+ public Rectangle PlayerBox(){
+  return new Rectangle (x - halfsize, y - halfsize, 2*halfsize, 2*halfsize);
+ }
+ 
+
+
+    public Player(int x, int y) {
+     this.x = x;
+     this.y = y;
+     
     }
     
     
-    boolean isScattering;
-    double[] scatSpeeds = new double[]{panicSpeed - 1, -1*panicSpeed};
-    
-    //only call once at hit
-    public void scatter(){
-    	isCaught = false;
-    	isScattering = true;
-    	
-    	//extends the timer
-    	time = -300;
-    		
-    	vx = scatSpeeds[randint(0,1)] + Math.random();
-    	vy = scatSpeeds[randint(0,1)]+ Math.random();
-    	
-    	dx += vx;
-    	dy += vy;
-    	
-    	
+    public void doAction(boolean[] mouseHeld,boolean[] mouseClicked,  int mx, int my, boolean[] keys, int screenx, int screeny,ArrayList<Wolf> allWolves){
+     
+     adjustAng(mx,my, screenx, screeny);
+     //System.out.println(ang);
+     move(keys);
+     if(mouseClicked[1]){
+       shoot(allWolves, screenx,screeny);
+     }
     }
     
-    private void slowDown(){
-    	vx *= 0.9;
-    	vy *= 0.9;
-    	if (vx < 0.01){
-    		vx = 0;
-    	}
-    	if (vy < 0.01){
-    		vy = 0;
-    	}
+    private void shoot(ArrayList<Wolf> allWolves,int screenx, int screeny){
+
+      for(Wolf wolf:allWolves){
+        int wolfX=wolf.getX();
+        int wolfY=wolf.getY();
+        
+        double temp = Math.atan2((double)(wolfX-screenx) - (double)(x - screenx), (double)(wolfY-screeny) - (double)(y - screeny));
+        temp = Math.toDegrees(temp);
+        temp += 36000000;
+        temp %= 360;
+        if(Math.abs(temp-ang)<=shotRange){
+          //Shoot them.
+          wolf.damage();
+          System.out.println("Shot");
+          
+        }
+      }
+      
     }
     
-    //called every frame every sheep
-    public void potentialCatch(Rectangle playerbox){
-    	if (SheepBox().intersects(playerbox) && !isScattering){
-    		isCaught = true;
-    	}
-	
+    private void adjustAng(int mx, int my, int screenx, int screeny){
+     
+     
+     
+     int tx = x - screenx;
+     int ty = y - screeny;
+     
+     //System.out.println("" + mx + " " + my + " " +screenx+" " + screeny);
+     
+     
+     double temp = Math.atan2((double)my - (double)ty, (double)mx - (double)tx);
+     temp = Math.toDegrees(temp);
+     temp += 36000000;
+     temp %= 360;
+     
+     ang = temp;
+     
     }
     
-    public Rectangle SheepBox(){
-    	return new Rectangle(x - halfsize, y - halfsize, 2*halfsize, 2*halfsize); //can be changed accordingly 
+    private void move(boolean[] keys){
+     
+     if (keys[getCode('W')]){
+      y -= speed;
+      if(y<halfsize){
+        y=halfsize;
+      }
+     }
+     
+     if (keys[getCode('S')]){
+      y += speed;
+      if(y>6000 -halfsize){
+        y=6000-halfsize;
+      }
+     }
+     
+     if (keys[getCode('A')]){
+      x -= speed;
+      if(x<halfsize){
+        x=halfsize;
+      }
+     }
+     
+     if (keys[getCode('D')]){
+      x += speed;
+      if(x>8000-halfsize){
+        x=8000-halfsize;
+      }
+     }
     }
+    
+    
+    
+    
+    private int getCode(char letter){
+     return (int)Character.toUpperCase(letter);
+    }
+    
+    
     
     public void draw(Graphics2D g, int screenx, int screeny){
-    	
-    	if (!isCaught){
-
-	    	//temp draw rect
-	    	g.setColor(Color.BLUE);
-	    	g.fillRect(x - halfsize - screenx, y - halfsize - screeny, 2*halfsize, 2*halfsize);
-    	}
+     
+     //temp
+     g.setColor(Color.RED);
+     g.drawRect(x - halfsize - screenx, y - halfsize - screeny, 2*halfsize, 2*halfsize);
+     
     }
     
-    public int randint(int low, int high){
-    	return (int)(Math.random()*(high-low+1)+low);
-    }
     
-    public double randouble(int low, int high){
-    	return (Math.random()*(high-low+1)+low);
-    }
     
     
 }
