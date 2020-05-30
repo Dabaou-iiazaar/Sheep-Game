@@ -13,6 +13,8 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
 	
 	private MainG mainFrame;
 	
+	private final int mapWidth = 8000;
+	private final int mapHeight = 6000;
 	
 	
 	
@@ -24,6 +26,8 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
 		Arrays.fill(keys,false);
 		mouseHeld = new boolean[4];
 		Arrays.fill(mouseHeld,false);
+		mouseClicked = new boolean[KeyEvent.KEY_LAST];
+		Arrays.fill(mouseClicked,false);
 		
 		addKeyListener(this);
 		addMouseListener(this);
@@ -39,22 +43,42 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
 		
 	}
 	
+	int screenx, screeny;
 	
+	public void updateScreenPos(Player p){
+		
+		//800x600
+		screenx = p.getX() - 400;
+		screeny = p.getY() - 300;
+		
+		screenx = Math.min(mapWidth, Math.max(0, screenx));
+		screeny = Math.min(mapHeight, Math.max(0, screeny));
+		
+		
+	}
 	
-
+	Player you = new Player(100, 100);
 	
 	public void move(){
+		updateScreenPos(you);
+		you.doAction(mouseHeld, mouseClicked, mx, my, keys, screenx, screeny);
 		
-		
-		
-			
+		//System.out.println("" + screenx + " " + screeny);
+		updateScreenPos(you);	
 	}
 	
 	
 	@Override
 	public void paintComponent(Graphics g){
+		Graphics2D g2d = (Graphics2D)g;
+		
+		g2d.setColor(Color.WHITE);
+		g2d.fillRect(0,0,800,600);
 		
 		
+		
+		
+		you.draw(g2d, screenx, screeny);
 		
 		
 		
@@ -86,6 +110,8 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
 	private int mx, my;
 	
 	private boolean mouseHeld[];
+	private boolean mouseClicked[];
+	
 	
 	@Override
 	
@@ -95,11 +121,20 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
 	
 	public void mousePressed(MouseEvent e){
 		mouseHeld[e.getButton()] = true;
+		
+		if (mouseClicked[e.getButton()] == false){
+			mouseClicked[e.getButton()] = true;
+		}
+		else{
+			mouseClicked[e.getButton()] = false;
+		}
+		
 	
 	}
 	
 	public void mouseReleased(MouseEvent e){
 		mouseHeld[e.getButton()] = false;
+		mouseClicked[e.getButton()] = false;
 	}
 	
 	public void mouseEntered(MouseEvent e){
