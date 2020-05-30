@@ -68,6 +68,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
   updateScreenPos(you); 
   for(Sheep sheep:allSheep){
      sheep.doMovement(you.getX(),you.getY());
+     sheep.potentialCatch(you.PlayerBox());
    }
  }
  
