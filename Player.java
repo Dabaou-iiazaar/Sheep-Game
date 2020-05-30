@@ -99,8 +99,8 @@ public class Player {
      
      if (keys[getCode('S')]){
       y += speed;
-      if(y>800){
-        y=800-halfsize;
+      if(y>6000 -halfsize){
+        y=6000-halfsize;
       }
      }
      
@@ -113,8 +113,8 @@ public class Player {
      
      if (keys[getCode('D')]){
       x += speed;
-      if(x>600-halfsize){
-        x=600-halfsize;
+      if(x>8000-halfsize){
+        x=8000-halfsize;
       }
      }
     }
