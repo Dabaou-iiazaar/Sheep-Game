@@ -1,4 +1,4 @@
-import java.util.*;//Importing for graphics and other helpful additions.
+import java.util.*;
 import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -8,10 +8,10 @@ import javax.imageio.*;
 import javax.sound.midi.*;
 import java.applet.*;
 import java.lang.Math;
-import javax.swing.Timer;//Specifying which Timer since there would be a conflict with util otherwise.
+import javax.swing.Timer;
 public class MainG extends JFrame{
   GamePanel game;
-  public MainG() {//Constructor.
+  public MainG() {
     super("Sheep Game");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(1000,700);
@@ -23,21 +23,21 @@ public class MainG extends JFrame{
     setVisible(true);
   }
 
-class TickListener implements ActionListener{//Class and its one method to update the graphics on screen every time the Timer tells them to.
+class TickListener implements ActionListener{
     public void actionPerformed(ActionEvent evt){
       game.repaint();
     }
   }
-  public static void startMidi(String midFilename,int len) {//Method for playing the music and loading it up.
-    try {//Midi music player function taken from Mr. Mckenzie.
-      File midiFile = new File(midFilename);//Getting the music to be loaded in the following lines.
+  public static void startMidi(String midFilename,int len) {
+    try {
+      File midiFile = new File(midFilename);
       Sequence song = MidiSystem.getSequence(midiFile);
       midiPlayer = MidiSystem.getSequencer();
       midiPlayer.open();
       midiPlayer.setSequence(song);
-      midiPlayer.setLoopCount(len);//In effect the music lasts forever.
+      midiPlayer.setLoopCount(len);
       midiPlayer.start();
-    } catch (MidiUnavailableException e) {//Below is all for catching potential errors when loading the music.
+    } catch (MidiUnavailableException e) {
       e.printStackTrace();
     } catch (InvalidMidiDataException e) {
       e.printStackTrace();
@@ -45,7 +45,7 @@ class TickListener implements ActionListener{//Class and its one method to updat
       e.printStackTrace();
     }
   }
-  public static void main(String[] args){//Main method.
-    MainG frame = new MainG();//Launching the graphics.
+  public static void main(String[] args){
+    MainG frame = new MainG();
   }
 }
