@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
   addKeyListener(this);
   addMouseListener(this);
   addMouseMotionListener(this);
-  
+  allSheep.add(new Sheep(100,100));
   
      
  }
@@ -58,14 +58,16 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
   
  }
  
- Player you = new Player(100, 100);
+ Player you = new Player(0, 0);
  
  public void move(){
   updateScreenPos(you);
   you.doAction(mouseHeld, mouseClicked, mx, my, keys, screenx, screeny,allWolves);
-  
   //System.out.println("" + screenx + " " + screeny);
   updateScreenPos(you); 
+  for(Sheep sheep:allSheep){
+     sheep.doMovement(you.getX(),you.getY());
+   }
  }
  
  
@@ -80,7 +82,9 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
   
   
   you.draw(g2d, screenx, screeny);
-  
+  for(Sheep sheep:allSheep){
+     sheep.draw(g2d,screenx,screeny);
+   }
   
   
   

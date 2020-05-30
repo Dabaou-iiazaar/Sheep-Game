@@ -92,18 +92,30 @@ public class Player {
      
      if (keys[getCode('W')]){
       y -= speed;
+      if(y<halfsize){
+        y=halfsize;
+      }
      }
      
      if (keys[getCode('S')]){
       y += speed;
+      if(y>800){
+        y=800-halfsize;
+      }
      }
      
      if (keys[getCode('A')]){
       x -= speed;
+      if(x<halfsize){
+        x=halfsize;
+      }
      }
      
      if (keys[getCode('D')]){
       x += speed;
+      if(x>600-halfsize){
+        x=600-halfsize;
+      }
      }
     }
     
