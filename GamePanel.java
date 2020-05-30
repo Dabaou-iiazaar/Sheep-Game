@@ -10,156 +10,156 @@ import java.util.*;
 
 //the class that packs together all of the objects and stuff
 public class GamePanel extends JPanel implements KeyListener, MouseListener, MouseMotionListener{
-	
-	private MainG mainFrame;
-	
-	private final int mapWidth = 8000;
-	private final int mapHeight = 6000;
-	
-	
-	
-	
-	public GamePanel(MainG mainFrame){
-		this.mainFrame = mainFrame;
-		
-		keys = new boolean[KeyEvent.KEY_LAST];
-		Arrays.fill(keys,false);
-		mouseHeld = new boolean[4];
-		Arrays.fill(mouseHeld,false);
-		mouseClicked = new boolean[KeyEvent.KEY_LAST];
-		Arrays.fill(mouseClicked,false);
-		
-		addKeyListener(this);
-		addMouseListener(this);
-		addMouseMotionListener(this);
-		
-		
-					
-	}
-	
-	public void addNotify(){
-		super.addNotify();
-		requestFocus();
-		
-	}
-	
-	int screenx, screeny;
-	
-	public void updateScreenPos(Player p){
-		
-		//800x600
-		screenx = p.getX() - 400;
-		screeny = p.getY() - 300;
-		
-		screenx = Math.min(mapWidth, Math.max(0, screenx));
-		screeny = Math.min(mapHeight, Math.max(0, screeny));
-		
-		
-	}
-	
-	Player you = new Player(100, 100);
-	
-	public void move(){
-		updateScreenPos(you);
-		you.doAction(mouseHeld, mouseClicked, mx, my, keys, screenx, screeny);
-		
-		//System.out.println("" + screenx + " " + screeny);
-		updateScreenPos(you);	
-	}
-	
-	
-	@Override
-	public void paintComponent(Graphics g){
-		Graphics2D g2d = (Graphics2D)g;
-		
-		g2d.setColor(Color.WHITE);
-		g2d.fillRect(0,0,800,600);
-		
-		
-		
-		
-		you.draw(g2d, screenx, screeny);
-		
-		
-		
-		
-		
-		
-	}
-	
-	
-	/*			keyboard   */
-	
-	private boolean[] keys;
-	
-	@Override
-	public void keyTyped(KeyEvent e){
-		
-	}
-	
-	public void keyPressed(KeyEvent e){
-		keys[e.getKeyCode()] = true;
-	}
-	
-	public void keyReleased(KeyEvent e){	
-		keys[e.getKeyCode()] = false;	
-	}
-	
-	
-	/*		mouse		*/
-	private int mx, my;
-	
-	private boolean mouseHeld[];
-	private boolean mouseClicked[];
-	
-	
-	@Override
-	
-	public void mouseClicked(MouseEvent e){
-		
-	}
-	
-	public void mousePressed(MouseEvent e){
-		mouseHeld[e.getButton()] = true;
-		
-		if (mouseClicked[e.getButton()] == false){
-			mouseClicked[e.getButton()] = true;
-		}
-		else{
-			mouseClicked[e.getButton()] = false;
-		}
-		
-	
-	}
-	
-	public void mouseReleased(MouseEvent e){
-		mouseHeld[e.getButton()] = false;
-		mouseClicked[e.getButton()] = false;
-	}
-	
-	public void mouseEntered(MouseEvent e){
-		
-	}
-	
-	public void mouseExited(MouseEvent e){
-		
-	}
-	
-	public void mouseMoved(MouseEvent e){
-		mx = e.getX();
-		my = e.getY();
-	}
-	
-	public void mouseDragged(MouseEvent e){
-		mx = e.getX();
-		my = e.getY();
-	}
-	
-	
-	
-	
-	
-	
-	
-	
+ 
+ private MainG mainFrame;
+ 
+ private final int mapWidth = 8000;
+ private final int mapHeight = 6000;
+ public ArrayList<Wolf> allWolves=new ArrayList<Wolf>();
+ 
+ 
+ 
+ public GamePanel(MainG mainFrame){
+  this.mainFrame = mainFrame;
+  
+  keys = new boolean[KeyEvent.KEY_LAST];
+  Arrays.fill(keys,false);
+  mouseHeld = new boolean[4];
+  Arrays.fill(mouseHeld,false);
+  mouseClicked = new boolean[KeyEvent.KEY_LAST];
+  Arrays.fill(mouseClicked,false);
+  
+  addKeyListener(this);
+  addMouseListener(this);
+  addMouseMotionListener(this);
+  
+  
+     
+ }
+ 
+ public void addNotify(){
+  super.addNotify();
+  requestFocus();
+  
+ }
+ 
+ int screenx, screeny;
+ 
+ public void updateScreenPos(Player p){
+  
+  //800x600
+  screenx = p.getX() - 400;
+  screeny = p.getY() - 300;
+  
+  screenx = Math.min(mapWidth, Math.max(0, screenx));
+  screeny = Math.min(mapHeight, Math.max(0, screeny));
+  
+  
+ }
+ 
+ Player you = new Player(100, 100);
+ 
+ public void move(){
+  updateScreenPos(you);
+  you.doAction(mouseHeld, mouseClicked, mx, my, keys, screenx, screeny);
+  
+  //System.out.println("" + screenx + " " + screeny);
+  updateScreenPos(you); 
+ }
+ 
+ 
+ @Override
+ public void paintComponent(Graphics g){
+  Graphics2D g2d = (Graphics2D)g;
+  
+  g2d.setColor(Color.WHITE);
+  g2d.fillRect(0,0,800,600);
+  
+  
+  
+  
+  you.draw(g2d, screenx, screeny);
+  
+  
+  
+  
+  
+  
+ }
+ 
+ 
+ /*   keyboard   */
+ 
+ private boolean[] keys;
+ 
+ @Override
+ public void keyTyped(KeyEvent e){
+  
+ }
+ 
+ public void keyPressed(KeyEvent e){
+  keys[e.getKeyCode()] = true;
+ }
+ 
+ public void keyReleased(KeyEvent e){ 
+  keys[e.getKeyCode()] = false; 
+ }
+ 
+ 
+ /*  mouse  */
+ private int mx, my;
+ 
+ private boolean mouseHeld[];
+ private boolean mouseClicked[];
+ 
+ 
+ @Override
+ 
+ public void mouseClicked(MouseEvent e){
+  
+ }
+ 
+ public void mousePressed(MouseEvent e){
+  mouseHeld[e.getButton()] = true;
+  
+  if (mouseClicked[e.getButton()] == false){
+   mouseClicked[e.getButton()] = true;
+  }
+  else{
+   mouseClicked[e.getButton()] = false;
+  }
+  
+ 
+ }
+ 
+ public void mouseReleased(MouseEvent e){
+  mouseHeld[e.getButton()] = false;
+  mouseClicked[e.getButton()] = false;
+ }
+ 
+ public void mouseEntered(MouseEvent e){
+  
+ }
+ 
+ public void mouseExited(MouseEvent e){
+  
+ }
+ 
+ public void mouseMoved(MouseEvent e){
+  mx = e.getX();
+  my = e.getY();
+ }
+ 
+ public void mouseDragged(MouseEvent e){
+  mx = e.getX();
+  my = e.getY();
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 }

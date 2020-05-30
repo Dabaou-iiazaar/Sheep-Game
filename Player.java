@@ -44,20 +44,18 @@ public class Player {
      adjustAng(mx,my, screenx, screeny);
      //System.out.println(ang);
      move(keys);
-     if(mouseClicked[0]){
+     if(mouseClicked[1]){
        shoot(allWolves, screenx,screeny);
      }
     }
     
     private void shoot(ArrayList<Wolf> allWolves,int screenx, int screeny){
-      
-      ArrayList<Wolf> allWolves=Wolf.allWolves;
+
       for(Wolf wolf:allWolves){
-        Rectangle wolfB=wolf.WolfBox();
-        int wolfX=(wolfB.x+wolfB.width+wolfB.x)/2;
-        int wolfY=(wolfB.y+wolfB.height+wolfB.y)/2;
+        int wolfX=wolf.getX();
+        int wolfY=wolf.getY();
         
-        double temp = Math.atan2((double)wolfX - (double)(x - screenx), (double)wolfY - (double)(y - screeny));
+        double temp = Math.atan2((double)(wolfX-screenx) - (double)(x - screenx), (double)(wolfY-screeny) - (double)(y - screeny));
         temp = Math.toDegrees(temp);
         temp += 36000000;
         temp %= 360;
