@@ -13,15 +13,21 @@ import java.io.*;
 
 public class Sheep {
 	
+
+	
 	private int x, y, vx, vy;
+	private final int halfsize = 10;
+	
+	
 	
     public Sheep(int X, int Y) {
     	x=X;
     	y=Y;
+    	
     }
     
     public Rectangle SheepBox(){
-    	return new Rectangle(x, y, 20, 20); //can be changed accordingly 
+    	return new Rectangle(x - halfsize, y - halfsize, 2*halfsize, 2*halfsize); //can be changed accordingly 
     }
     
 }
