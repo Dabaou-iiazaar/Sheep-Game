@@ -20,8 +20,10 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
 	public GamePanel(MainG mainFrame){
 		this.mainFrame = mainFrame;
 		
-		keys = new boolean[KeyEvent.KEY_LAST];	Arrays.fill(mouseHeld,false);
-		mouseHeld = new boolean[4];Arrays.fill(mouseFirstReleased,false);
+		keys = new boolean[KeyEvent.KEY_LAST];
+		Arrays.fill(keys,false);
+		mouseHeld = new boolean[4];
+		Arrays.fill(mouseHeld,false);
 		
 		addKeyListener(this);
 		addMouseListener(this);
