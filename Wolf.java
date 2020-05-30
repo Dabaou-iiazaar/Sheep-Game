@@ -14,15 +14,27 @@ import java.io.*;
 
 public class Wolf {
 	
-	private int x, y, vx, vy;
+	
+    private int x, y, vx, vy;
+	private final int halfsize = 10;
+	
+	public int getX(){
+		return x;
+	}
+	public int getY(){
+		return y;
+	}
+	
+	
 	
     public Wolf(int X, int Y) {
     	x=X;
     	y=Y;
+    	
     }
     
     public Rectangle WolfBox(){
-    	return new Rectangle(x, y, 30, 30); //can be changed accordingly 
+    	return new Rectangle(x - halfsize, y - halfsize, 2*halfsize, 2*halfsize); //can be changed accordingly 
     }
-    
+	
 }
