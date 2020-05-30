@@ -11,17 +11,18 @@ import java.awt.Rectangle;
 import java.awt.Image;
 import java.io.*;
 
-public class Sheep {
+
+public class Wolf {
 	
 	private int x, y, vx, vy;
 	
-    public Sheep(int X, int Y) {
+    public Wolf(int X, int Y) {
     	x=X;
     	y=Y;
     }
     
-    public Rectangle SheepBox(){
-    	return new Rectangle(x, y, 20, 20); //can be changed accordingly 
+    public Rectangle WolfBox(){
+    	return new Rectangle(x, y, 30, 30); //can be changed accordingly 
     }
     
 }
