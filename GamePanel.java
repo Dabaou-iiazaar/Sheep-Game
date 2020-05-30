@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
 	public void addNotify(){
 		super.addNotify();
 		requestFocus();
-		mainFrame.start();
+		
 	}
 	
 	
