@@ -116,12 +116,12 @@ public class Sheep {
     }
     
     private void slowDown(){
-    	vx *= 0.9;
-    	vy *= 0.9;
-    	if (vx < 0.01){
+    	vx *= 0.95;
+    	vy *= 0.95;
+    	if (vx < 0.001){
     		vx = 0;
     	}
-    	if (vy < 0.01){
+    	if (vy < 0.001){
     		vy = 0;
     	}
     }
