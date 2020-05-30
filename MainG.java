@@ -10,6 +10,8 @@ import java.applet.*;
 import java.lang.Math;
 import javax.swing.Timer;
 public class MainG extends JFrame{
+  private static Sequencer midiPlayer;
+  Timer myTimer;
   GamePanel game;
   public MainG() {
     super("Sheep Game");
