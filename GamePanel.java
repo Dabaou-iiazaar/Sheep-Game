@@ -16,6 +16,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
  private final int mapWidth = 8000;
  private final int mapHeight = 6000;
  public ArrayList<Wolf> allWolves=new ArrayList<Wolf>();
+ public ArrayList<Sheep> allSheep=new ArrayList<Sheep>();
  
  
  
