@@ -61,7 +61,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
  
  public void move(){
   updateScreenPos(you);
-  you.doAction(mouseHeld, mouseClicked, mx, my, keys, screenx, screeny);
+  you.doAction(mouseHeld, mouseClicked, mx, my, keys, screenx, screeny,allWolves);
   
   //System.out.println("" + screenx + " " + screeny);
   updateScreenPos(you); 
