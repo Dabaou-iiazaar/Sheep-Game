@@ -52,8 +52,9 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
   screenx = p.getX() - 400;
   screeny = p.getY() - 300;
   
-  screenx = Math.min(mapWidth, Math.max(0, screenx));
-  screeny = Math.min(mapHeight, Math.max(0, screeny));
+  screenx = Math.min(mapWidth - 800, Math.max(0, screenx));
+  screeny = Math.min(mapHeight - 600, Math.max(0, screeny));
+  System.out.println("" + p.getX() + " " + p.getY());
   
   
  }
@@ -168,4 +169,3 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
  
  
 }
-
