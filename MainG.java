@@ -14,7 +14,7 @@ public class MainG extends JFrame{
   public MainG() {
     super("Sheep Game");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setSize(1000,700);
+    setSize(800,600);
     myTimer = new Timer(40, new TickListener());
     myTimer.start();
     game = new GamePanel(this);
@@ -25,6 +25,7 @@ public class MainG extends JFrame{
 
 class TickListener implements ActionListener{
     public void actionPerformed(ActionEvent evt){
+      game.move();
       game.repaint();
     }
   }
