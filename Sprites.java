@@ -22,6 +22,7 @@ public class Sprites {
  private static BufferedImage[] wolfL=new BufferedImage[3];
  private static BufferedImage[] shepR=new BufferedImage[3];
  private static BufferedImage[] shepL=new BufferedImage[3];
+ private static BufferedImage[] wolfDeath =new BufferedImage[16];
  
  //call once before main in MainG
  public static void load(){
@@ -58,6 +59,16 @@ public class Sprites {
         catch (IOException e) {
             System.out.println(e);
         }
+        
+        //load wolf death images
+        try{
+        	for(int k=0;k<16;k++){
+            	wolfDeath[k]=ImageIO.read(new File("WolfHit/WolfHit"+(k)+".png"));
+          	}	
+        }
+        catch (IOException e) {
+            System.out.println(e);
+        }
   
  }
  
@@ -79,4 +90,9 @@ public class Sprites {
  public static BufferedImage getShepL(int f){
    return shepL[f];
  }
+ 
+ public static BufferedImage getWolfDeath(int f){
+	return wolfDeath[f];
+ }
+ 
 }

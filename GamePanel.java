@@ -112,7 +112,7 @@ public class GamePanel extends JPanel{
   
   //remove dead wolves
   for(int i = allWolves.size() - 1; i>= 0; i--){
-   if (!allWolves.get(i).isAlive){
+   if (allWolves.get(i).isFinished()){
     allWolves.remove(i);
    }
   }
@@ -129,7 +129,7 @@ public class GamePanel extends JPanel{
    
    
    for(Wolf w : allWolves){
-   w.doMovement(you.getX(),you.getY());
+   w.doAnyAction(you.getX(),you.getY());
    if (w.WolfBox().intersects(you.PlayerBox()) && hitTime<=0){
       you.damage();
       hitTime=20;
@@ -188,6 +188,8 @@ public class GamePanel extends JPanel{
   
   //indicators
   
+  
+  //box that points towards closest sheep
   if(!close){
     closest=closestSheep();
   }
@@ -220,7 +222,6 @@ public class GamePanel extends JPanel{
   g2d.drawString(healthtext, 575, 100);
   
   //flash red when hit
-  
   if (hitTime > 10){
 
    g2d.setColor(new Color(245, 129, 66, 150));

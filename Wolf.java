@@ -16,6 +16,12 @@ public class Wolf {
  
  public boolean isAlive = true;
  
+ private boolean deathAniFinished = false;
+ public boolean isFinished(){
+ 	return deathAniFinished;
+ }
+ 
+ 
  boolean attack=false;
  private int x, y;
  
@@ -45,14 +51,23 @@ public class Wolf {
       
     }
     
-    
-    
-    
-    
+
     private final int aggroDist = 400;
     private final double maxS = 8.0;
     
-    public void doMovement(int px,int py){
+    public void doAnyAction(int px, int py){
+    	if (isAlive){
+    		doMovement(px,py);
+    	}
+    	//playing the hit animation
+    	else{
+    		incrementDframe();
+    	}
+    	
+    }
+    
+    
+    private void doMovement(int px,int py){
      
      
      //only speed u[ if in range
@@ -157,17 +172,45 @@ public class Wolf {
     }
     
     
+    //frame of the guy
+    private int dframe = 0;
+    private final int DBUFFERTIME = 8;
+    private int dbuffer = 0;//up to time
+    
+    private void incrementDframe(){
+     dbuffer++;
+     if (dbuffer == DBUFFERTIME){
+      dbuffer = 0;
+      dframe++;
+     }
+     
+     if (dframe == 15 && dbuffer == DBUFFERTIME - 1){
+     	deathAniFinished = true;
+     }
+     
+     
+    }
+    
+    
     
     public void draw(Graphics2D g,int screenx,int screeny){
      
-     BufferedImage temp;
-  if (vx > 0){
-   temp = Sprites.getWolfR(frame);
-  }
-  else{
-   temp = Sprites.getWolfL(frame); 
-  }
-  g.drawImage(temp, x - temp.getWidth()/2 - screenx, y - temp.getHeight()/2 - screeny, null);
+     if (isAlive){
+
+		     BufferedImage temp;
+		  if (vx > 0){
+		   temp = Sprites.getWolfR(frame);
+		  }
+		  else{
+		   temp = Sprites.getWolfL(frame); 
+		  }
+		  g.drawImage(temp, x - temp.getWidth()/2 - screenx, y - temp.getHeight()/2 - screeny, null);
+     }
+     //draw if dead
+     else{
+     	BufferedImage temp = Sprites.getWolfDeath(dframe);
+     	g.drawImage(temp, x - temp.getWidth()/2 - screenx, y - temp.getHeight()/2 - screeny, null);
+     }
   
   
      
