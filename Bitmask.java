@@ -30,7 +30,7 @@ public class Bitmask {
         }
         
         try{
-        	map = ImageIO.read(new File(lightpath));
+        	lightmask = ImageIO.read(new File(lightpath));
         }
         catch(IOException e){
         	System.out.println(e);
@@ -84,6 +84,10 @@ public class Bitmask {
 	
 	public static BufferedImage getMap(){
 		return map;
+	}
+	
+	public static BufferedImage getDark(){
+		return lightmask;
 	}
 	
 	
