@@ -50,6 +50,12 @@ class TickListener implements ActionListener{
   }
   public static void main(String[] args){
   	System.setProperty("sun.java2d.opengl", "True");
+  	
+  	
+  	//call Bitmask.load() and Sprites.load
+  	Sprites.load();
+  	
+  	
     MainG frame = new MainG();
   }
 }
