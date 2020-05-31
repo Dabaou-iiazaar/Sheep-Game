@@ -55,13 +55,12 @@ public class Sheep {
     	if (!isCaught){
     		time++;
     		if (time < maxTime){
-    			//regular move
-    			dx += vx;
     			
+    			//in bounds (0-8000, 0-6000)
     			dx = Math.max((double)halfsize, Math.min((double)(8000 - halfsize), dx));
-    			dy= Math.max((double)halfsize, Math.min((double)(600 - halfsize), dy));
+    			dy = Math.max((double)halfsize, Math.min((double)(600 - halfsize), dy));
     			
-    			dy += vy;
+    			
     			slowDown();
 	
     		}
@@ -84,6 +83,12 @@ public class Sheep {
     		time = 0;
     		
     	}
+    	
+    	
+    	//update position (bitmask check comes here later)
+    	dx += vx;
+    	dy += vy;
+    	
     	
     	x = (int)dx;
     	y = (int)dy;
