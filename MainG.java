@@ -131,7 +131,7 @@ class TickListener implements ActionListener{
  
  public void keyPressed(KeyEvent e){
   keys[e.getKeyCode()] = true;
-  System.out.println("key!");
+  //System.out.println("key!");
  }
  
  public void keyReleased(KeyEvent e){ 

@@ -100,7 +100,7 @@ public class GamePanel extends JPanel{
   
  }
  
- Player you = new Player(3600,5500);
+ Player you = new Player(3880,5700);
  private boolean gameover = false;
  
  
@@ -137,7 +137,7 @@ public class GamePanel extends JPanel{
       }
     }
   }
-  System.out.println(sheepCol);
+  //System.out.println(sheepCol);
   
   //remove dead wolves
   for(int i = allWolves.size() - 1; i>= 0; i--){
@@ -175,7 +175,7 @@ public class GamePanel extends JPanel{
    }
    for(Wolf w : allWolves){
    w.doAnyAction(you.getX(),you.getY());
-   if (w.WolfBox().intersects(you.PlayerBox()) && hitTime<=0){
+   if (w.WolfBox().intersects(you.PlayerBox()) && hitTime<=0 && w.isAlive){
       you.damage();
       hitTime=100;
       scatterAllSheep();

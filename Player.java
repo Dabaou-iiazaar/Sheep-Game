@@ -21,7 +21,7 @@ public class Player {
  }
  
  private double ang;
- public int health=100;
+ public int health=250;
  public int getHP(){
  	return health;
  }
@@ -80,7 +80,7 @@ public class Player {
         if(Math.abs(temp-ang)<=shotRange && Math.hypot(x - wolfX, y - wolfY) < shotDist){
           //Shoot them.
           wolf.damage();
-          System.out.println("Shot");
+          //System.out.println("Shot");
           
         }
       }
@@ -168,9 +168,9 @@ public class Player {
       
   	  
       health-=25;
-      System.out.println("Ow...");
+      //System.out.println("Ow...");
       if(health<0){
-        System.out.println("DEAD!!!");
+        //System.out.println("DEAD!!!");
         return true;
       }
       return false;
@@ -215,13 +215,17 @@ public class Player {
   g.drawImage(temp, x - temp.getWidth()/2 - screenx, y - temp.getHeight()/2 - screeny, null);
      
      
-     
+     /*
      //temp
      g.setColor(Color.RED);
      g.drawRect(x - halfsize - screenx, y - halfsize - screeny, 2*halfsize, 2*halfsize);
+     */
      
+     
+     /*
      g.setColor(Color.BLUE);
      g.drawOval(x - shotDist - screenx, y - shotDist - screeny, 2*shotDist, 2*shotDist);
+     */
      
      g.setColor(new Color(255,0,0,100));
      int rang = 360 - (int)ang;

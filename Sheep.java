@@ -142,7 +142,7 @@ public class Sheep {
      isCaught = false;
      isScattering = true;
      
-     System.out.println("scatter");
+     //System.out.println("scatter");
      
      //extends the timer
      time = maxTime - 100;
