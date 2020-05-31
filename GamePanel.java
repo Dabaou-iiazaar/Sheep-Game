@@ -9,7 +9,7 @@ import javax.imageio.*;
 import java.util.*;
 
 //the class that packs together all of the objects and stuff
-public class GamePanel extends JPanel implements KeyListener, MouseListener, MouseMotionListener{
+public class GamePanel extends JPanel{
  
  private MainG mainFrame;
  
@@ -23,6 +23,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
  public GamePanel(MainG mainFrame){
   this.mainFrame = mainFrame;
   
+  /*
   keys = new boolean[KeyEvent.KEY_LAST];
   Arrays.fill(keys,false);
   mouseHeld = new boolean[4];
@@ -33,7 +34,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
   addKeyListener(this);
   addMouseListener(this);
   addMouseMotionListener(this);
-  
+  */
   
   //test load sheeps into the world
   allSheep.add(new Sheep(100,100));
@@ -65,7 +66,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
  
  Player you = new Player(0, 0);
  
- public void move(){
+ public void move(boolean[] mouseHeld, boolean[] mouseClicked, int mx, int my, boolean[] keys){
   updateScreenPos(you);
   
   you.doAction(mouseHeld, mouseClicked, mx, my, keys, screenx, screeny,allWolves);
@@ -126,9 +127,9 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
   
   
  }
+ /*
  
  
- /*   keyboard   */
  
  private boolean[] keys;
  
@@ -139,6 +140,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
  
  public void keyPressed(KeyEvent e){
   keys[e.getKeyCode()] = true;
+  System.out.println("key!");
  }
  
  public void keyReleased(KeyEvent e){ 
@@ -146,7 +148,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
  }
  
  
- /*  mouse  */
+ 
  private int mx, my;
  
  private boolean mouseHeld[];
@@ -196,6 +198,8 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
   mx = e.getX();
   my = e.getY();
  }
+ 
+ */
  
  
  

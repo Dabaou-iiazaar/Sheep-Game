@@ -1,15 +1,33 @@
-class menu extends JPanel {
+
+import java.awt.*;
+import java.awt.Font;
+import java.awt.event.*;
+import java.awt.geom.*;
+import javax.swing.*;
+import java.awt.image.*; 
+import java.io.*; 
+import javax.imageio.*; 
+import java.util.*;
+
+public class menu extends JPanel {
 	public boolean ready=false;
-    private boolean []keys, clickedPlay = false;
-    private int delay = 0; frame = 0;
-    private Image[8] pics;
     
-	public GamePanel(){
-		keys = new boolean[KeyEvent.KEY_LAST+1];
-		addKeyListener(new moveListener());
+    private int delay = 0, frame = 0;
+    private Image[] pics = new Image[8];
+    
+    private final Rectangle button = new Rectangle(270, 229, 258, 108);
+    
+    
+	public menu(){
+		
+		//init mouse listeners
+		
+		
+		
+		
         setSize(800,600);
         for(int i = 1; i<=8; i++){
-            pics[i-1] = new ImageIcon("menuPics/Menu" + i).getImage();
+            pics[i-1] = new ImageIcon("menuPics/Menu" + i + ".png").getImage();
         }
 	}
 	
@@ -19,18 +37,22 @@ class menu extends JPanel {
         ready = true;
     }
     
-    public boolean clickedPlay(){
-        //if(mousepos == rectpos){
-            // return true
-        // }
+    public boolean clickedPlay(boolean[] mouseClicked, int mx, int my){
+        if (mouseClicked[1] && button.contains(mx,my)){
+        	return true;
+        }
+        
         return false;
     }
 
     public void paint(Graphics g){
         g.drawImage(pics[frame], 0, 0, null);
-        if(delay %10 == 0){
-            frame = (frame+1)%8
+        if(delay % 20 == 0){
+            frame = (frame+1)%8;
         }
         delay++;
     } 
+    	
+    	
+    
 }
