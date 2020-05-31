@@ -23,6 +23,8 @@ public class GamePanel extends JPanel{
  public GamePanel(MainG mainFrame){
   this.mainFrame = mainFrame;
   
+  this.requestFocus();
+  
   /*
   keys = new boolean[KeyEvent.KEY_LAST];
   Arrays.fill(keys,false);
@@ -95,6 +97,9 @@ public class GamePanel extends JPanel{
  
  Player you = new Player(0, 0);
  
+ private int hitTime=20;
+ 
+ 
  public void move(boolean[] mouseHeld, boolean[] mouseClicked, int mx, int my, boolean[] keys){
   updateScreenPos(you);
   
@@ -117,7 +122,19 @@ public class GamePanel extends JPanel{
    
    
    for(Wolf w : allWolves){
-  w.doMovement(you.getX(),you.getY(),you);
+  	w.doMovement(you.getX(),you.getY());
+  	if (w.WolfBox().intersects(you.PlayerBox()) && hitTime<=0){
+      you.damage();
+      hitTime=20;
+      scatterAllSheep();
+      
+      
+      
+    }
+    else{
+       hitTime-=1;
+       hitTime = Math.max(-10, hitTime);
+     }
   }
    
    
@@ -125,7 +142,14 @@ public class GamePanel extends JPanel{
    
  }
  
- 
+ private void scatterAllSheep(){
+ 	for (Sheep s : allSheep){
+ 		if (s.isCaught){
+ 			s.scatter();
+ 		}
+ 	}
+ 	
+ }
  
  
  @Override

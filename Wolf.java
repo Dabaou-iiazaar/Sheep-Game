@@ -21,7 +21,7 @@ public class Wolf {
  
  private double dx, dy, vx, vy;
  private final int halfsize = 20;
- private int hitTime=20;
+ 
   private final double a = 0.15; //accellaration is high, but slowdown will also be high
   
   
@@ -52,14 +52,9 @@ public class Wolf {
     private final int aggroDist = 400;
     private final double maxS = 8.0;
     
-    public void doMovement(int px,int py,Player player){
-     if (WolfBox().intersects(player.PlayerBox()) && hitTime<=0){
-      player.damage();
-      hitTime=20;
-     }
-     else{
-       hitTime-=1;
-     }
+    public void doMovement(int px,int py){
+     
+     
      //only speed u[ if in range
      if (Math.hypot(px - x, py - y) < aggroDist){
      

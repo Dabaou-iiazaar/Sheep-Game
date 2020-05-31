@@ -44,7 +44,7 @@ public class Sheep {
     	
     }
     
-    private boolean isCaught;
+    public boolean isCaught;
     
     private int time;
     private final int maxTime = 200;
@@ -142,8 +142,10 @@ public class Sheep {
     	isCaught = false;
     	isScattering = true;
     	
+    	System.out.println("scatter");
+    	
     	//extends the timer
-    	time = -300;
+    	time = maxTime - 100;
     		
     	vx = scatSpeeds[randint(0,1)] + Math.random();
     	vy = scatSpeeds[randint(0,1)]+ Math.random();
