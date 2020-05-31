@@ -40,6 +40,8 @@ public class Bitmask {
 	
 	
 	public static final Color pink = new Color(246, 0, 255);
+	
+	//true = you are open
 	public static boolean isClear(int x, int y){
 		
 		
@@ -54,6 +56,29 @@ public class Bitmask {
         return c != WALL;
     
 	}
+	
+	//true = all 4 corners clear
+	public static boolean isRectClear(Rectangle r){
+		int tx = (int)r.getX();
+		int ty = (int)r.getY();
+		
+		
+		int wid = (int)r.getWidth();
+		int hei = (int)r.getHeight();
+		
+		return Bitmask.isClear(tx,ty) && 
+			   Bitmask.isClear(tx,ty + hei) && 
+			   Bitmask.isClear(tx + wid,ty) && 
+			   Bitmask.isClear(tx + wid,ty + hei);
+		
+		
+	}
+	
+	public static BufferedImage getMap(){
+		return map;
+	}
+	
+	
 	
 	
 	
