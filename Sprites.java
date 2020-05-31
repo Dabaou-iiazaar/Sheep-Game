@@ -50,10 +50,10 @@ public class Sprites {
         }
         try {
           for(int k=0;k<3;k++){
-            shepR[k]=ImageIO.read(new File("shepR"+(k+1)+".png"));
+            shepR[k]=ImageIO.read(new File("shep/shepR"+(k+1)+".png"));
           }
           for(int k=0;k<3;k++){
-            shepL[k]=ImageIO.read(new File("shepL"+(k+1)+".png"));
+            shepL[k]=ImageIO.read(new File("shep/shepL"+(k+1)+".png"));
           }
         } 
         catch (IOException e) {

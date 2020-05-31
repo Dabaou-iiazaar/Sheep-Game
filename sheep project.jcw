@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<workspace>
+	<settings>
+		<label>sheep project</label>
+	</settings>
+	<users>
+		<user>
+			<path>sheep project.jcu</path>
+		</user>
+	</users>
+	<projects>
+		<project>
+			<path>sheep project.jcp</path>
+		</project>
+	</projects>
+</workspace>
