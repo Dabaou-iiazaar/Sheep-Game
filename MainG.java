@@ -52,7 +52,7 @@ class TickListener implements ActionListener{
   	System.setProperty("sun.java2d.opengl", "True");
   	
   	
-  	//call Bitmask.load() and Sprites.load
+  	//call Bitmask.load(String maskpath, String mappath))
   	Sprites.load();
   	
   	
