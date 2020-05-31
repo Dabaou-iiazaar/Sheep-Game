@@ -154,7 +154,7 @@ class TickListener implements ActionListener{
  
  public void mousePressed(MouseEvent e){
   
- System.out.println("pressed");
+ //System.out.println("pressed");
   mouseHeld[e.getButton()] = true;
   
   if (mouseClicked[e.getButton()] == false){

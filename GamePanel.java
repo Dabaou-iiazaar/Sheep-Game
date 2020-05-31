@@ -188,7 +188,7 @@ public class GamePanel extends JPanel{
    }
    
    
-   if (you.getHP() <= 0){
+   if (you.getHP() <= 0 || allSheep.isEmpty()){
      gameover = true;
    }
    
@@ -307,8 +307,14 @@ public class GamePanel extends JPanel{
    g2d.setColor(new Color(245, 129, 66));
    g2d.fillRect(0,0,800,600);
    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, transparent));
-   BufferedImage ttemp = Sprites.getGameOver();
-   g2d.drawImage(ttemp,0,0,null);
+   
+   if (!allSheep.isEmpty()){
+	   BufferedImage ttemp = Sprites.getGameOver();
+	   g2d.drawImage(ttemp,0,0,null);
+   }
+   else{
+   	
+   }
    
    String endscore = "Your Score: " + score;
    g2d.drawString(endscore, 250, 500);
