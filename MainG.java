@@ -9,12 +9,15 @@ import javax.sound.midi.*;
 import java.applet.*;
 import java.lang.Math;
 import javax.swing.Timer;
+
 public class MainG extends JFrame{
 	
 	
   private static Sequencer midiPlayer;
   Timer myTimer;
-  GamePanel game;
+  GamePanel game, menu;
+
+  private int scene;
   
   JPanel cards;
   CardLayout cLayout;
@@ -29,6 +32,7 @@ public class MainG extends JFrame{
     game = new GamePanel(this);
     //add(game);
     cards.add(game, "game");
+    cards.add(menu, "menu");
     
     add(cards);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,8 +45,19 @@ public class MainG extends JFrame{
 
 class TickListener implements ActionListener{
     public void actionPerformed(ActionEvent evt){
-      game.move();
-      game.repaint();
+        if(scene == 0){
+            cLayout.show(cards, "menu");
+            menu.repaint();
+            if(menu.clickedPlay()){
+                scene+=1;
+            }
+        }
+        if(scene == 1){
+            cLayout.show(cards, "game");
+            game.move();
+            game.repaint();
+        }
+        
     }
   }
   public static void startMidi(String midFilename,int len) {
@@ -68,8 +83,8 @@ class TickListener implements ActionListener{
   	
   	//call Bitmask.load(String maskpath, String mappath))
   	
-  	Bitmask.load("ColourMask.png", "LightMask.png", "MainMap.png");
-  	Sprites.load();
+  	// Bitmask.load("ColourMask.png", "LightMask.png", "MainMap.png");
+  	// Sprites.load();
   	
   	
     MainG frame = new MainG();
