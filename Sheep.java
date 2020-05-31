@@ -16,7 +16,7 @@ public class Sheep {
 
 	
 	private int x, y;
-	private final int halfsize = 10;
+	private final int halfsize = 20;
 	
 	
 	//real double coordinates
@@ -58,7 +58,7 @@ public class Sheep {
     			
     			//in bounds (0-8000, 0-6000)
     			dx = Math.max((double)halfsize, Math.min((double)(8000 - halfsize), dx));
-    			dy = Math.max((double)halfsize, Math.min((double)(600 - halfsize), dy));
+    			dy = Math.max((double)halfsize, Math.min((double)(6000 - halfsize), dy));
     			
     			
     			slowDown();
@@ -85,7 +85,11 @@ public class Sheep {
     	}
     	
     	
-    	//update position (bitmask check comes here later)
+    	//update position 
+    	int oldx = x;
+    	int oldy = y;
+    	
+    	//(bitmask check comes here later)
     	dx += vx;
     	dy += vy;
     	
@@ -93,7 +97,29 @@ public class Sheep {
     	x = (int)dx;
     	y = (int)dy;
     	
+    	if (x != oldx || y != oldy){
+    		incrementframe();
+    	}
+    	
     }
+    
+    
+    //frame of the guy
+    private int frame = randint(0,3);//0,1,2
+    private final int BUFFERTIME = 10;
+    private int buffer = randint(0,BUFFERTIME);//up to time
+    
+    private void incrementframe(){
+    	buffer++;
+    	if (buffer == BUFFERTIME){
+    		buffer = 0;
+    		frame++;
+    	}
+    	frame = frame%4;//4 pics
+    	
+    }
+    
+    
     
     public void setCaught(boolean val){
     	isCaught = val;
@@ -146,10 +172,25 @@ public class Sheep {
     public void draw(Graphics2D g, int screenx, int screeny){
     	
     	if (!isCaught){
-
+			
+			BufferedImage temp;
+			if (vx > 0){
+				temp = Sprites.getSheepR(frame);
+			}
+			else{
+				temp = Sprites.getSheepL(frame);	
+			}
+			g.drawImage(temp, x - temp.getWidth()/2 - screenx, y - temp.getHeight()/2 - screeny, null);
+			
+			/*
 	    	//temp draw rect
 	    	g.setColor(Color.BLUE);
 	    	g.fillRect(x - halfsize - screenx, y - halfsize - screeny, 2*halfsize, 2*halfsize);
+	    	*/
+	    	
+	    	
+	    	
+	    	
     	}
     }
     
