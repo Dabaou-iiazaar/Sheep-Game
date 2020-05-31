@@ -97,7 +97,7 @@ public class GamePanel extends JPanel{
   
  }
  
- Player you = new Player(0, 0);
+ Player you = new Player(100, 100);
  
  private int hitTime=0;//time since last hit from 20
  private int numSheepCaught = 0;

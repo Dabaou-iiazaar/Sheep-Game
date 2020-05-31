@@ -121,9 +121,20 @@ public class Wolf {
      int oldy = y;
      
      
-     //update position
-     dx += vx;
-     dy += vy;
+     //update position + check collision
+     
+     //collide with xy;
+     Rectangle poten = new Rectangle((int)(dx+ vx) - halfsize, (int)(dy + vy) - halfsize, 2*halfsize, 2*halfsize);
+     
+     if (Bitmask.isRectClear(poten)){
+      dx += vx;
+      dy += vy; 
+     }
+     else{
+     	vx = 0;
+     	vy = 0;
+     }
+     
      
      x = (int)dx;
      y = (int)dy;

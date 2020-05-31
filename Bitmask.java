@@ -47,7 +47,7 @@ public class Bitmask {
 	}
 	
 	
-	public static final Color pink = new Color(246, 0, 255);
+	public static final Color pink = new Color(255, 0, 255);
 	
 	//true = you are open
 	public static boolean isClear(int x, int y){

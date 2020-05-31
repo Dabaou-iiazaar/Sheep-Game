@@ -46,13 +46,18 @@ public class Player {
     
     
     public void doAction(boolean[] mouseHeld,boolean[] mouseClicked,  int mx, int my, boolean[] keys, int screenx, int screeny,ArrayList<Wolf> allWolves){
-     
+     int oldx = x, oldy = y;
      adjustAng(mx,my, screenx, screeny);
      //System.out.println(ang);
      move(keys);
      if(mouseClicked[1]){
        shoot(allWolves, screenx,screeny);
      }
+     
+     if (x != oldx || y != oldy){
+     	incrementframe();
+     }
+     
     }
     
     private void shoot(ArrayList<Wolf> allWolves,int screenx, int screeny){
@@ -103,43 +108,56 @@ public class Player {
     private boolean facingRight = true;
     private void move(boolean[] keys){
      
-     int oldx = x;
-     int oldy = y;
+     
+     
+     int tx = x;
+     int ty = y;
+     
      
      
      if (keys[getCode('W')]){
-      y -= speed;
-      if(y<halfsize){
-        y=halfsize;
+      ty -= speed;
+      if(ty<halfsize){
+        ty=halfsize;
       }
      }
      
      if (keys[getCode('S')]){
-      y += speed;
-      if(y>6000 -halfsize){
-        y=6000-halfsize;
+      ty += speed;
+      if(ty>6000 -halfsize){
+        ty=6000-halfsize;
       }
      }
      
      if (keys[getCode('A')]){
-      x -= speed;
+      tx -= speed;
       facingRight = false;
-      if(x<halfsize){
-        x=halfsize;
+      if(tx<halfsize){
+        tx=halfsize;
       }
      }
      
      if (keys[getCode('D')]){
-      x += speed;
+      tx += speed;
       facingRight = true;
-      if(x>8000-halfsize){
-        x=8000-halfsize;
+      if(tx>8000-halfsize){
+        tx=8000-halfsize;
       }
      }
      
-     if (x != oldx || y != oldy){
-      incrementframe();
+     //can you move
+     Rectangle poten = new Rectangle((int)(tx) - halfsize, (int)(ty) - halfsize, 2*halfsize, 2*halfsize);
+     
+     if (Bitmask.isRectClear(poten)){
+      x = tx;
+      y = ty; 
+      	
+      
+      
      }
+     
+     
+     
      
      
      

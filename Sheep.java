@@ -93,7 +93,7 @@ public class Sheep {
      //(bitmask check comes here later)
      
      //collide with xy;
-     Rectangle poten = new Rectangle((int)(dx+ vx), (int)(dy + vy), 2*halfsize, 2*halfsize);
+     Rectangle poten = new Rectangle((int)(dx+ vx) - halfsize, (int)(dy + vy) - halfsize, 2*halfsize, 2*halfsize);
      
      if (Bitmask.isRectClear(poten)){
       dx += vx;
