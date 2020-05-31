@@ -164,7 +164,7 @@ public class GamePanel extends JPanel{
    w.doAnyAction(you.getX(),you.getY());
    if (w.WolfBox().intersects(you.PlayerBox()) && hitTime<=0){
       you.damage();
-      hitTime=20;
+      hitTime=100;
       scatterAllSheep();
        
     }
@@ -272,7 +272,7 @@ public class GamePanel extends JPanel{
   g2d.drawString(healthtext, 575, 100);
   
   //flash red when hit
-  if (hitTime > 10){
+  if (hitTime > 90){
 
    g2d.setColor(new Color(245, 129, 66, 150));
    g2d.fillRect(0,0,800,600);
