@@ -21,7 +21,7 @@ public class Player {
  }
  
  private double ang;
- 
+ public int health=100;
  private final int speed = 4;
  private final int halfsize = 20;
  private final int shotRange=30;
@@ -133,7 +133,7 @@ public class Player {
      }
      
      if (x != oldx || y != oldy){
-     	incrementframe();
+      incrementframe();
      }
      
      
@@ -146,13 +146,13 @@ public class Player {
     private int buffer = randint(0,BUFFERTIME);//up to time
     
     private void incrementframe(){
-    	buffer++;
-    	if (buffer == BUFFERTIME){
-    		buffer = 0;
-    		frame++;
-    	}
-    	frame = frame%3;//4 pics
-    	
+     buffer++;
+     if (buffer == BUFFERTIME){
+      buffer = 0;
+      frame++;
+     }
+     frame = frame%3;//4 pics
+     
     }
     
     
@@ -168,13 +168,13 @@ public class Player {
      
      
      BufferedImage temp;
-		if (facingRight){
-			temp = Sprites.getShepR(frame);
-		}
-		else{
-			temp = Sprites.getShepL(frame);	
-		}
-		g.drawImage(temp, x - temp.getWidth()/2 - screenx, y - temp.getHeight()/2 - screeny, null);
+  if (facingRight){
+   temp = Sprites.getShepR(frame);
+  }
+  else{
+   temp = Sprites.getShepL(frame); 
+  }
+  g.drawImage(temp, x - temp.getWidth()/2 - screenx, y - temp.getHeight()/2 - screeny, null);
      
      
      
@@ -194,9 +194,18 @@ public class Player {
     }
     
     public int randint(int low, int high){
-    	return (int)(Math.random()*(high-low+1)+low);
+     return (int)(Math.random()*(high-low+1)+low);
     }
     
+    public boolean damage(){
+      health-=25;
+      System.out.println("Ow...");
+      if(health<0){
+        System.out.println("DEAD!!!");
+        return true;
+      }
+      return false;
+    }
     
     
     
