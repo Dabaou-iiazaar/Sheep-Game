@@ -21,6 +21,7 @@ public class GamePanel extends JPanel{
  private Sheep closest;
  public ArrayList<Wolf> allWolves=new ArrayList<Wolf>();
  public ArrayList<Sheep> allSheep=new ArrayList<Sheep>();
+ public ArrayList<Sheep> penSheep=new ArrayList<Sheep>();
  
  
  
@@ -99,12 +100,13 @@ public class GamePanel extends JPanel{
   
  }
  
- Player you = new Player(100, 100);
+ Player you = new Player(3600,5500);
  private boolean gameover = false;
  
  
  private int hitTime=0;//time since last hit from 20
  private int numSheepCaught = 0;
+ private int score = 0;
  
  public void move(boolean[] mouseHeld, boolean[] mouseClicked, int mx, int my, boolean[] keys){
   
@@ -120,12 +122,18 @@ public class GamePanel extends JPanel{
   //System.out.println("" + screenx + " " + screeny);
   updateScreenPos(you);
   
-  if(you.getX()>3600 && you.getX()<4160 && you.getY()>5600){
+  //sheep collecting
+  if(you.getX()>3600 && you.getX()<4160 && you.getY()>5850){
     sheepCol+=numSheepCaught;
     numSheepCaught=0;
     for(int i = allSheep.size() - 1; i>= 0; i--){
+    	
       if (allSheep.get(i).isCaught){
         allSheep.remove(i);
+        
+        
+        penSheep.add(new Sheep(randint(3700, 4060), 5950));
+        score++;
       }
     }
   }
@@ -147,6 +155,11 @@ public class GamePanel extends JPanel{
      }
    }
    numSheepCaught = tempsheepcount;
+   
+   for(Sheep sheep:penSheep){
+     sheep.doMovement(you.getX(),you.getY());
+    
+   }
    
    wolfTime-=1;
    if(wolfTime<=0){
@@ -228,6 +241,11 @@ public class GamePanel extends JPanel{
      sheep.draw(g2d,screenx,screeny);
    }
    
+   for(Sheep sheep:penSheep){
+     sheep.draw(g2d,screenx,screeny);
+    
+   }
+   
   for (Wolf w : allWolves){
    w.draw(g2d, screenx, screeny);
   }
@@ -258,6 +276,7 @@ public class GamePanel extends JPanel{
   if(closest.getY()!=-1000 && closest.getX()!=-1000){
     g2d.fillRect(you.getX()-screenx+(int)cx,you.getY()-screeny+(int)cy,20,20);
   }
+  
   //sheep icon
   BufferedImage sheeplogo = Sprites.getSheepL(2);
   g2d.drawImage(Sprites.getSheepL(2), 675 - sheeplogo.getWidth(), 100 - sheeplogo.getHeight(), null);
@@ -270,6 +289,10 @@ public class GamePanel extends JPanel{
   int health = you.getHP();
   String healthtext = "HP = " + health;
   g2d.drawString(healthtext, 575, 100);
+  
+  
+  String scoretext = "Score = " + score;
+  g2d.drawString(scoretext, 575, 150);
   
   //flash red when hit
   if (hitTime > 90){
@@ -286,6 +309,10 @@ public class GamePanel extends JPanel{
    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, transparent));
    BufferedImage ttemp = Sprites.getGameOver();
    g2d.drawImage(ttemp,0,0,null);
+   
+   String endscore = "Your Score: " + score;
+   g2d.drawString(endscore, 250, 500);
+   
    transparent += 0.01;
    transparent = (float)Math.min(1.0, transparent);
    

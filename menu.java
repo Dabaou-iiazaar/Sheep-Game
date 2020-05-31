@@ -47,7 +47,7 @@ public class menu extends JPanel {
 
     public void paint(Graphics g){
         g.drawImage(pics[frame], 0, 0, null);
-        if(delay % 20 == 0){
+        if(delay % 10 == 0){
             frame = (frame+1)%8;
         }
         delay++;

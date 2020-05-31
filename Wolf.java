@@ -28,7 +28,7 @@ public class Wolf {
  private double dx, dy, vx, vy;
  private final int halfsize = 20;
  
-  private final double a = 0.15; //accellaration is high, but slowdown will also be high
+  private final double a = 0.1; //accellaration is high, but slowdown will also be high
   
   
  public int getX(){
@@ -53,7 +53,7 @@ public class Wolf {
     
 
     private final int aggroDist = 550;
-    private final double maxS = 8.0;
+    private final double maxS = 7.0;
     
     public void doAnyAction(int px, int py){
     	if (isAlive){

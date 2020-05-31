@@ -46,6 +46,7 @@ public class Player {
     
     
     public void doAction(boolean[] mouseHeld,boolean[] mouseClicked,  int mx, int my, boolean[] keys, int screenx, int screeny,ArrayList<Wolf> allWolves){
+     
      int oldx = x, oldy = y;
      adjustAng(mx,my, screenx, screeny);
      //System.out.println(ang);
@@ -156,11 +157,25 @@ public class Player {
       
      }
      
-     
-     
-     
-     
-     
+
+    }
+    
+    
+    
+    //retturns if you are killed by damage
+    public boolean damage(){
+    	
+      
+  	  
+      health-=25;
+      System.out.println("Ow...");
+      if(health<0){
+        System.out.println("DEAD!!!");
+        return true;
+      }
+      return false;
+	     
+	   
     }
     
     //frame of the guy
@@ -220,15 +235,7 @@ public class Player {
      return (int)(Math.random()*(high-low+1)+low);
     }
     
-    public boolean damage(){
-      health-=25;
-      System.out.println("Ow...");
-      if(health<0){
-        System.out.println("DEAD!!!");
-        return true;
-      }
-      return false;
-    }
+    
     
     
     
