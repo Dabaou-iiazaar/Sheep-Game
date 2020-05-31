@@ -15,6 +15,8 @@ public class GamePanel extends JPanel{
  
  private final int mapWidth = 8000;
  private final int mapHeight = 6000;
+ private boolean close=false;
+ private Sheep closest;
  public ArrayList<Wolf> allWolves=new ArrayList<Wolf>();
  public ArrayList<Sheep> allSheep=new ArrayList<Sheep>();
  
@@ -120,15 +122,15 @@ public class GamePanel extends JPanel{
      sheep.doMovement(you.getX(),you.getY());
      sheep.potentialCatch(you.PlayerBox());
      if (sheep.isCaught){
-     	tempsheepcount++;
+      tempsheepcount++;
      }
    }
    numSheepCaught = tempsheepcount;
    
    
    for(Wolf w : allWolves){
-  	w.doMovement(you.getX(),you.getY());
-  	if (w.WolfBox().intersects(you.PlayerBox()) && hitTime<=0){
+   w.doMovement(you.getX(),you.getY());
+   if (w.WolfBox().intersects(you.PlayerBox()) && hitTime<=0){
       you.damage();
       hitTime=20;
       scatterAllSheep();
@@ -148,12 +150,12 @@ public class GamePanel extends JPanel{
  }
  
  private void scatterAllSheep(){
- 	for (Sheep s : allSheep){
- 		if (s.isCaught){
- 			s.scatter();
- 		}
- 	}
- 	
+  for (Sheep s : allSheep){
+   if (s.isCaught){
+    s.scatter();
+   }
+  }
+  
  }
  
  
@@ -186,6 +188,24 @@ public class GamePanel extends JPanel{
   
   //indicators
   
+  if(!close){
+    closest=closestSheep();
+  }
+  else{
+    if(closest.isCaught){
+      close=false;
+    }
+  }
+  double temp = Math.atan2((double)(closest.getY()-screeny) - (double)(you.getY() - screeny),(double)(closest.getX()-screenx) - (double)(you.getX() - screenx));
+  temp = Math.toDegrees(temp);
+  temp += 36000000;
+  temp %= 360;
+  double cy=Math.sin(Math.toRadians(temp))*100-10;
+  double cx=Math.cos(Math.toRadians(temp))*100-10;
+  g2d.setColor(new Color(245, 129, 66, 150));
+  if(closest.getY()!=-1000 && closest.getX()!=-1000){
+    g2d.fillRect(you.getX()-screenx+(int)cx,you.getY()-screeny+(int)cy,20,20);
+  }
   //sheep icon
   BufferedImage sheeplogo = Sprites.getSheepL(2);
   g2d.drawImage(Sprites.getSheepL(2), 675 - sheeplogo.getWidth(), 100 - sheeplogo.getHeight(), null);
@@ -203,10 +223,26 @@ public class GamePanel extends JPanel{
   
   if (hitTime > 10){
 
-	  g2d.setColor(new Color(245, 129, 66, 150));
-	  g2d.fillRect(0,0,800,600);
+   g2d.setColor(new Color(245, 129, 66, 150));
+   g2d.fillRect(0,0,800,600);
   }
   
+ }
+  public Sheep closestSheep(){
+    double min=9999999;
+    Sheep ret=new Sheep(-1000,-1000);
+    for(Sheep sheep:allSheep){
+      if(!sheep.isCaught){
+        double dist=Math.hypot(sheep.getX()-you.getX(),sheep.getY()-you.getY());
+        if(dist<min){
+          min=dist;
+          ret=sheep;
+          close=true;
+        }
+      }
+    }
+    return ret;
+  }
  }
  
  
@@ -216,5 +252,3 @@ public class GamePanel extends JPanel{
  
  
  
- 
-}
