@@ -56,10 +56,11 @@ public class Sheep {
     		time++;
     		if (time < maxTime){
     			
+    			/*
     			//in bounds (0-8000, 0-6000)
     			dx = Math.max((double)halfsize, Math.min((double)(8000 - halfsize), dx));
     			dy = Math.max((double)halfsize, Math.min((double)(6000 - halfsize), dy));
-    			
+    			*/
     			
     			slowDown();
 	
@@ -90,8 +91,15 @@ public class Sheep {
     	int oldy = y;
     	
     	//(bitmask check comes here later)
-    	dx += vx;
-    	dy += vy;
+    	
+    	//collide with xy;
+    	Rectangle poten = new Rectangle((int)(dx+ vx), (int)(dy + vy), 2*halfsize, 2*halfsize);
+    	
+    	if (Bitmask.isRectClear(poten)){
+    		dx += vx;
+    		dy += vy;	
+    	}
+    	
     	
     	
     	x = (int)dx;
