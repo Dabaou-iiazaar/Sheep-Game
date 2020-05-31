@@ -26,6 +26,7 @@ public class Sprites {
  
  //game over
  private static BufferedImage gameOverText;
+ private static BufferedImage win;
  
  //call once before main in MainG
  public static void load(){
@@ -80,6 +81,13 @@ public class Sprites {
         catch (IOException e) {
             System.out.println(e);
         }
+        
+        try{
+        	win = ImageIO.read(new File("YouWin.jpg"));
+        }
+        catch (IOException e) {
+            System.out.println(e);
+        }
   
  }
  
@@ -108,6 +116,10 @@ public class Sprites {
  
  public static BufferedImage getGameOver(){
  	return gameOverText;
+ }
+ 
+ public static BufferedImage getWin(){
+ 	return win;
  }
  
 }

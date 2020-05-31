@@ -313,7 +313,8 @@ public class GamePanel extends JPanel{
 	   g2d.drawImage(ttemp,0,0,null);
    }
    else{
-   	
+   		BufferedImage ttemp = Sprites.getWin();
+	   g2d.drawImage(ttemp,0,0,null);
    }
    
    String endscore = "Your Score: " + score;
