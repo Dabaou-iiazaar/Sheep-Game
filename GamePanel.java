@@ -58,7 +58,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
   
   screenx = Math.min(mapWidth - 800, Math.max(0, screenx));
   screeny = Math.min(mapHeight - 600, Math.max(0, screeny));
-  System.out.println("" + p.getX() + " " + p.getY());
+  //System.out.println("" + p.getX() + " " + p.getY());
   
   
  }
@@ -72,6 +72,13 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
   //System.out.println("" + screenx + " " + screeny);
   updateScreenPos(you);
   
+  
+  //remove dead wolves
+  for(int i = allWolves.size() - 1; i>= 0; i--){
+  	if (!allWolves.get(i).isAlive){
+  		allWolves.remove(i);
+  	}
+  }
    
   for(Sheep sheep:allSheep){
      sheep.doMovement(you.getX(),you.getY());
@@ -83,6 +90,8 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
  	w.doMovement(you.getX(),you.getY());
  	}
    
+   
+   Arrays.fill(mouseClicked, false);
    
  }
  
@@ -147,6 +156,8 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
  }
  
  public void mousePressed(MouseEvent e){
+ 	
+ System.out.println("pressed");
   mouseHeld[e.getButton()] = true;
   
   if (mouseClicked[e.getButton()] == false){
