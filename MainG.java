@@ -98,11 +98,25 @@ class TickListener implements ActionListener{
   	
   	//call Bitmask.load(String maskpath, String mappath))
   	
-  	 Bitmask.load("ColourMask.png", "LightMask.png", "MainMap.png");
-  	 Sprites.load();
+  	MainG.loadAll();
   	
   	
     MainG frame = new MainG();
+  }
+  
+  
+  public void kill(){
+  	myTimer.stop();
+  	dispose();
+  }
+  
+  public static boolean alreadyLoaded = false;
+  public static void loadAll(){
+  	if (!alreadyLoaded){
+	  	 Bitmask.load("ColourMask.png", "LightMask.png", "MainMap.png");
+	  	 Sprites.load();
+	  	 alreadyLoaded = true;
+  	}
   }
   
   

@@ -24,6 +24,9 @@ public class Sprites {
  private static BufferedImage[] shepL=new BufferedImage[3];
  private static BufferedImage[] wolfDeath =new BufferedImage[16];
  
+ //game over
+ private static BufferedImage gameOverText;
+ 
  //call once before main in MainG
  public static void load(){
         try {
@@ -69,6 +72,14 @@ public class Sprites {
         catch (IOException e) {
             System.out.println(e);
         }
+        
+        
+        try{
+        	gameOverText = ImageIO.read(new File("GameOver.png"));
+        }
+        catch (IOException e) {
+            System.out.println(e);
+        }
   
  }
  
@@ -93,6 +104,10 @@ public class Sprites {
  
  public static BufferedImage getWolfDeath(int f){
 	return wolfDeath[f];
+ }
+ 
+ public static BufferedImage getGameOver(){
+ 	return gameOverText;
  }
  
 }

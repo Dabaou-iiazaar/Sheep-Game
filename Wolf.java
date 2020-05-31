@@ -52,7 +52,7 @@ public class Wolf {
     }
     
 
-    private final int aggroDist = 400;
+    private final int aggroDist = 550;
     private final double maxS = 8.0;
     
     public void doAnyAction(int px, int py){

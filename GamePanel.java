@@ -98,14 +98,23 @@ public class GamePanel extends JPanel{
  }
  
  Player you = new Player(100, 100);
+ private boolean gameover = false;
+ 
  
  private int hitTime=0;//time since last hit from 20
  private int numSheepCaught = 0;
  
  public void move(boolean[] mouseHeld, boolean[] mouseClicked, int mx, int my, boolean[] keys){
+ 	
+  
   updateScreenPos(you);
   
-  you.doAction(mouseHeld, mouseClicked, mx, my, keys, screenx, screeny,allWolves);
+  
+  //only if your not go
+  if (!gameover){
+  	you.doAction(mouseHeld, mouseClicked, mx, my, keys, screenx, screeny,allWolves);	
+  }
+  
   //System.out.println("" + screenx + " " + screeny);
   updateScreenPos(you);
   
@@ -134,15 +143,32 @@ public class GamePanel extends JPanel{
       you.damage();
       hitTime=20;
       scatterAllSheep();
-      
-      
-      
+       
     }
     else{
        hitTime-=1;
        hitTime = Math.max(-10, hitTime);
      }
-  }
+   }
+   
+   
+   if (you.getHP() <= 0){
+   		gameover = true;
+   }
+   
+   
+
+	if (gameover){
+		
+		//you click
+		if (mouseClicked[1]){
+			mainFrame.kill();
+			MainG.main(new String[0]);
+		}
+	
+	}
+  	
+  
    
    
    Arrays.fill(mouseClicked, false);
@@ -159,15 +185,16 @@ public class GamePanel extends JPanel{
  }
  
  
+ private float transparent = (float)0.0;
+ 
  @Override
  public void paintComponent(Graphics g){
   Graphics2D g2d = (Graphics2D)g;
   
-  /*
-  g2d.setColor(Color.WHITE);
-  g2d.fillRect(0,0,800,600);
-  */
   
+  
+
+	  
   //map
   g2d.drawImage(Bitmask.getMap(), -1*screenx, -1*screeny, null);
   
@@ -227,6 +254,23 @@ public class GamePanel extends JPanel{
    g2d.setColor(new Color(245, 129, 66, 150));
    g2d.fillRect(0,0,800,600);
   }
+
+  
+  //draw gameover screen
+  if (gameover){
+	  g2d.setColor(new Color(245, 129, 66));
+	  g2d.fillRect(0,0,800,600);
+	  g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, transparent));
+	  BufferedImage ttemp = Sprites.getGameOver();
+	  g2d.drawImage(ttemp,0,0,null);
+	  transparent += 0.01;
+	  transparent = (float)Math.min(1.0, transparent);
+	  
+	  
+	  
+	  
+  }
+  
   
  }
   public Sheep closestSheep(){
