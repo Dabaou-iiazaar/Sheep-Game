@@ -1,3 +1,4 @@
+//GamePanel.java for Sheep Game
 import java.awt.*;
 import java.awt.Font;
 import java.awt.event.*;
@@ -18,10 +19,24 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
  public ArrayList<Wolf> allWolves=new ArrayList<Wolf>();
  public ArrayList<Sheep> allSheep=new ArrayList<Sheep>();
  
- 
+ //Start of Update for Menu
+ private int screen; //value of screen you're on
+ public static final int MENU=1, GAME=2; //non-magic number values for screen transition
+ private Point mouse; //to track mouse location
+ private Image bUp, bDown; //Buttons TBD
+ private Rectangle mInstructions, mPlay;
+ //End of Update
  
  public GamePanel(MainG mainFrame){
   this.mainFrame = mainFrame;
+  
+  //SoU Menu
+  screen=MENU;
+  mInstructions = new Rectangle(300,300,200,50); //placeholders until button size determined
+  mPlay = new Rectangle(300,400,200,50);
+  //bUp = new ImageIcon("buttons/button1_up.png").getImage(); //placeholders until we find first button image
+  //bDown = new ImageIcon("buttons/button1_down.png").getImage();
+  //EoU Menu
   
   keys = new boolean[KeyEvent.KEY_LAST];
   Arrays.fill(keys,false);
@@ -39,7 +54,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
   allSheep.add(new Sheep(100,100));
   allWolves.add(new Wolf(500,500));
   
-     
+  
  }
  
  public void addNotify(){
@@ -94,11 +109,70 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
    Arrays.fill(mouseClicked, false);
    
  }
+ //SoU Menu
  
+ /*
+ public void update(){
+	if(screen == GAME){
+		move();
+	}
+	mouse = MouseInfo.getPointerInfo().getLocation();
+	Point offset = getLocationOnScreen();
+	mouse.translate(-offset.x, -offset.y);
+ }
+ */
  
+ //EoU Menu
  
- 
+ /*   drawing   */
  @Override
+ 	
+ //SoU Menu	
+ 
+ public void imgToRect(Graphics g, Image img, Rectangle area){
+	g.drawImage(img, area.x, area.y, area.width, area.height, null);
+ }
+ 
+ public void drawMenu(Graphics g){
+	g.setColor(new Color(0xB1C4DF));  
+	g.fillRect(0,0,800,600);
+	if(mInstructions.contains(mouse)){
+		imgToRect(g, bUp, mInstructions);
+	}
+	else{
+		imgToRect(g, bDown, mInstructions);			
+	}
+	if(mPlay.contains(mouse)){
+		imgToRect(g, bUp, mPlay);
+	}
+	else{
+		imgToRect(g, bDown, mPlay);
+	}
+ }
+ /*
+ public void drawGame(Graphics g){
+	g.setColor(new Color(0xB1DFC4));
+	g.fillRect(0,0,800,600);
+	g.setColor(Color.blue);
+	g.fillRect(boxx,boxy,40,40);
+ }
+ 
+ 
+ public void paint(Graphics g){
+    if(screen == MENU){
+    	drawMenu(g);
+    }
+    else if(screen == GAME){
+    	drawGame(g);
+    }
+    else if(screen == INSTRUCTIONS){
+    	drawInstructions(g);
+    }
+ }
+ */
+ 
+ //EoU Menu
+    
  public void paintComponent(Graphics g){
   Graphics2D g2d = (Graphics2D)g;
   
@@ -158,6 +232,7 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
  public void mousePressed(MouseEvent e){
  	
  System.out.println("pressed");
+ 
   mouseHeld[e.getButton()] = true;
   
   if (mouseClicked[e.getButton()] == false){
@@ -167,7 +242,17 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
    mouseClicked[e.getButton()] = false;
   }
   
- 
+  //SoU for Menu
+  if(screen == MENU){
+	if(mInstructions.contains(mouse)){
+		screen = INSTRUCTIONS;	
+	}
+	if(mPlay.contains(mouse)){
+		screen = GAME;
+	}
+  }
+  //EoU for Menu
+  
  }
  
  public void mouseReleased(MouseEvent e){
