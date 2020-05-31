@@ -56,10 +56,16 @@ public class Player {
         int wolfX=wolf.getX();
         int wolfY=wolf.getY();
         
-        double temp = Math.atan2((double)(wolfX-screenx) - (double)(x - screenx), (double)(wolfY-screeny) - (double)(y - screeny));
+        double temp = Math.atan2((double)(wolfY-screeny) - (double)(y - screeny),(double)(wolfX-screenx) - (double)(x - screenx));
         temp = Math.toDegrees(temp);
         temp += 36000000;
         temp %= 360;
+        if(temp<=360 && temp>=270 && ang>=0 && ang<=90){
+          ang+=360;
+        }
+        else if(ang<=360 && ang>=270 && temp>=0 && temp<=90){
+          temp+=360;
+        }
         if(Math.abs(temp-ang)<=shotRange && Math.hypot(x - wolfX, y - wolfY) < shotDist){
           //Shoot them.
           wolf.damage();
