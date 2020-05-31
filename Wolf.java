@@ -14,8 +14,8 @@ import java.io.*;
 
 public class Wolf {
  
- 
-    private int x, y, vx, vy;
+ boolean attack=false;
+ private int x, y, vx, vy;
  private final int halfsize = 10;
  
  public int getX(){
@@ -32,11 +32,17 @@ public class Wolf {
      y=Y;
      
     }
-    
+    public void doMovement(int px,int py,int screenx,int screeny){
+      
+    }
     public Rectangle WolfBox(){
      return new Rectangle(x - halfsize, y - halfsize, 2*halfsize, 2*halfsize); //can be changed accordingly 
     }
     public void damage(){
       return;
+    }
+    public void draw(Graphics2D g,int screenx,int screeny){
+      g.setColor(Color.GREEN);
+      g.fillRect(x-halfsize-screenx,y-halfsize-screeny,2*halfsize,2*halfsize);
     }
 }
