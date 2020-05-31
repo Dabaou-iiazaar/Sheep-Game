@@ -13,12 +13,14 @@ import java.io.*;
 
 
 public class Wolf {
+	
+	public boolean isAlive = true;
  
 	boolean attack=false;
 	private int x, y;
 	
 	private double dx, dy, vx, vy;
-	private final int halfsize = 10;
+	private final int halfsize = 20;
  	private final double a = 0.15; //accellaration is high, but slowdown will also be high
  	
  	
@@ -71,6 +73,7 @@ public class Wolf {
 	    		vy -= a;
 	    	}
 	    	
+	    	//cap the speed
 	    	if (Math.abs(vx) > maxS){
 	    		if (vx < 0){
 	    			vx = -1*maxS;
@@ -96,11 +99,21 @@ public class Wolf {
     		slowDown();
     	}
     	
+    	int oldx = x;
+    	int oldy = y;
+    	
+    	
+    	//update position
     	dx += vx;
 	    dy += vy;
     	
     	x = (int)dx;
     	y = (int)dy;
+    	
+    	if (oldx != x || oldy != y){
+    		incrementframe();
+    	}
+    	
     	
     }
     
@@ -121,10 +134,48 @@ public class Wolf {
     	return new Rectangle(x - halfsize, y - halfsize, 2*halfsize, 2*halfsize); //can be changed accordingly 
     }
     public void damage(){
-    	return;
+    	isAlive = false;
     }
+    
+    
+    //frame of the guy
+    private int frame = randint(0,2);//0,1,2
+    private final int BUFFERTIME = 8;
+    private int buffer = randint(0,BUFFERTIME);//up to time
+    
+    private void incrementframe(){
+    	buffer++;
+    	if (buffer == BUFFERTIME){
+    		buffer = 0;
+    		frame++;
+    	}
+    	frame = frame%3;//4 pics
+    	
+    }
+    
+    
+    
     public void draw(Graphics2D g,int screenx,int screeny){
+    	
+    	BufferedImage temp;
+		if (vx > 0){
+			temp = Sprites.getWolfR(frame);
+		}
+		else{
+			temp = Sprites.getWolfL(frame);	
+		}
+		g.drawImage(temp, x - temp.getWidth()/2 - screenx, y - temp.getHeight()/2 - screeny, null);
+		
+		
+    	
+    	/*
     	g.setColor(Color.GREEN);
-    	g.fillRect(x-halfsize-screenx,y-halfsize-screeny,2*halfsize,2*halfsize);
+    	g.fillRect(x-halfsize-screenx,y-halfsize-screeny + 5,2*halfsize,2*halfsize);
+    	*/
+    }
+    
+    
+    public int randint(int low, int high){
+    	return (int)(Math.random()*(high-low+1)+low);
     }
 }
