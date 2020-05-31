@@ -17,15 +17,23 @@ import java.util.*;
 public class Bitmask {
 	
 	private static BufferedImage mask;
+	private static BufferedImage lightmask;
 	private static BufferedImage map;
 	
 	//call once before main in MainG
-	public static void load(String maskpath, String mappath){
+	public static void load(String maskpath,String lightpath ,String mappath){
 		try {
             mask = ImageIO.read(new File(maskpath));
         } 
         catch (IOException e) {
             System.out.println(e);
+        }
+        
+        try{
+        	map = ImageIO.read(new File(lightpath));
+        }
+        catch(IOException e){
+        	System.out.println(e);
         }
         
         try {
