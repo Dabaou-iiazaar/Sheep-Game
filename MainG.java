@@ -10,17 +10,31 @@ import java.applet.*;
 import java.lang.Math;
 import javax.swing.Timer;
 public class MainG extends JFrame{
+	
+	
   private static Sequencer midiPlayer;
   Timer myTimer;
   GamePanel game;
+  
+  JPanel cards;
+  CardLayout cLayout;
+  
   public MainG() {
     super("Sheep Game");
+    
+    cLayout = new CardLayout();
+    cards = new JPanel(cLayout);
+    
+
+    game = new GamePanel(this);
+    //add(game);
+    cards.add(game, "game");
+    
+    add(cards);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(800,600);
     myTimer = new Timer(10, new TickListener());
     myTimer.start();
-    game = new GamePanel(this);
-    add(game);
     setResizable(false);
     setVisible(true);
   }
