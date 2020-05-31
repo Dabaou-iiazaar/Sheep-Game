@@ -16,6 +16,7 @@ public class GamePanel extends JPanel{
  private final int mapWidth = 8000;
  private final int mapHeight = 6000;
  private int wolfTime=500;
+ private int sheepCol=0;
  private boolean close=false;
  private Sheep closest;
  public ArrayList<Wolf> allWolves=new ArrayList<Wolf>();
@@ -119,6 +120,16 @@ public class GamePanel extends JPanel{
   //System.out.println("" + screenx + " " + screeny);
   updateScreenPos(you);
   
+  if(you.getX()>3600 && you.getX()<4160 && you.getY()>5600){
+    sheepCol+=numSheepCaught;
+    numSheepCaught=0;
+    for(int i = allSheep.size() - 1; i>= 0; i--){
+      if (allSheep.get(i).isCaught){
+        allSheep.remove(i);
+      }
+    }
+  }
+  System.out.println(sheepCol);
   
   //remove dead wolves
   for(int i = allWolves.size() - 1; i>= 0; i--){
