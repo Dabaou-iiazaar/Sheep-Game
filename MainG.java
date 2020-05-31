@@ -27,8 +27,8 @@ public class MainG extends JFrame{
 
 class TickListener implements ActionListener{
     public void actionPerformed(ActionEvent evt){
-      game.move();
       game.repaint();
+      game.move();
     }
   }
   public static void startMidi(String midFilename,int len) {
@@ -49,13 +49,13 @@ class TickListener implements ActionListener{
     }
   }
   public static void main(String[] args){
-  	System.setProperty("sun.java2d.opengl", "True");
-  	
-  	
-  	//call Bitmask.load(String maskpath, String mappath))
-  	Sprites.load();
-  	
-  	
+   System.setProperty("sun.java2d.opengl", "True");
+   
+   
+   //call Bitmask.load(String maskpath, String mappath))
+   Sprites.load();
+   
+   
     MainG frame = new MainG();
   }
 }
