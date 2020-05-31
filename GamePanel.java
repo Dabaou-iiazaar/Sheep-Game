@@ -97,8 +97,8 @@ public class GamePanel extends JPanel{
  
  Player you = new Player(0, 0);
  
- private int hitTime=20;
- 
+ private int hitTime=0;//time since last hit from 20
+ private int numSheepCaught = 0;
  
  public void move(boolean[] mouseHeld, boolean[] mouseClicked, int mx, int my, boolean[] keys){
   updateScreenPos(you);
@@ -114,11 +114,16 @@ public class GamePanel extends JPanel{
     allWolves.remove(i);
    }
   }
-   
+  
+  int tempsheepcount = 0;
   for(Sheep sheep:allSheep){
      sheep.doMovement(you.getX(),you.getY());
      sheep.potentialCatch(you.PlayerBox());
+     if (sheep.isCaught){
+     	tempsheepcount++;
+     }
    }
+   numSheepCaught = tempsheepcount;
    
    
    for(Wolf w : allWolves){
@@ -179,80 +184,31 @@ public class GamePanel extends JPanel{
   g2d.drawImage(Bitmask.getDark(), -1*screenx, -1*screeny, null);
   
   
- }
- /*
- 
- 
- 
- private boolean[] keys;
- 
- @Override
- public void keyTyped(KeyEvent e){
+  //indicators
   
- }
- 
- public void keyPressed(KeyEvent e){
-  keys[e.getKeyCode()] = true;
-  System.out.println("key!");
- }
- 
- public void keyReleased(KeyEvent e){ 
-  keys[e.getKeyCode()] = false; 
- }
- 
- 
- 
- private int mx, my;
- 
- private boolean mouseHeld[];
- private boolean mouseClicked[];
- 
- 
- @Override
- 
- public void mouseClicked(MouseEvent e){
+  //sheep icon
+  BufferedImage sheeplogo = Sprites.getSheepL(2);
+  g2d.drawImage(Sprites.getSheepL(2), 675 - sheeplogo.getWidth(), 100 - sheeplogo.getHeight(), null);
+  g2d.setColor(Color.WHITE);
+  g2d.setFont(new Font("Serif", Font.BOLD, 50));
   
- }
- 
- public void mousePressed(MouseEvent e){
+  String sheepcount = "x " + numSheepCaught;
+  g2d.drawString(sheepcount, 650, 50);
   
- System.out.println("pressed");
-  mouseHeld[e.getButton()] = true;
+  int health = you.getHP();
+  String healthtext = "HP = " + health;
+  g2d.drawString(healthtext, 575, 100);
   
-  if (mouseClicked[e.getButton()] == false){
-   mouseClicked[e.getButton()] = true;
-  }
-  else{
-   mouseClicked[e.getButton()] = false;
+  //flash red when hit
+  
+  if (hitTime > 10){
+
+	  g2d.setColor(new Color(245, 129, 66, 150));
+	  g2d.fillRect(0,0,800,600);
   }
   
- 
  }
  
- public void mouseReleased(MouseEvent e){
-  mouseHeld[e.getButton()] = false;
-  mouseClicked[e.getButton()] = false;
- }
- 
- public void mouseEntered(MouseEvent e){
-  
- }
- 
- public void mouseExited(MouseEvent e){
-  
- }
- 
- public void mouseMoved(MouseEvent e){
-  mx = e.getX();
-  my = e.getY();
- }
- 
- public void mouseDragged(MouseEvent e){
-  mx = e.getX();
-  my = e.getY();
- }
- 
- */
  
  
  

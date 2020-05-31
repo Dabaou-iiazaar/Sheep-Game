@@ -22,6 +22,11 @@ public class Player {
  
  private double ang;
  public int health=100;
+ public int getHP(){
+ 	return health;
+ }
+ 
+ 
  private final int speed = 4;
  private final int halfsize = 20;
  private final int shotRange=30;
