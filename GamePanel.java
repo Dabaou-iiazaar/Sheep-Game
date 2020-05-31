@@ -15,6 +15,7 @@ public class GamePanel extends JPanel{
  
  private final int mapWidth = 8000;
  private final int mapHeight = 6000;
+ private int wolfTime=500;
  private boolean close=false;
  private Sheep closest;
  public ArrayList<Wolf> allWolves=new ArrayList<Wolf>();
@@ -105,14 +106,14 @@ public class GamePanel extends JPanel{
  private int numSheepCaught = 0;
  
  public void move(boolean[] mouseHeld, boolean[] mouseClicked, int mx, int my, boolean[] keys){
- 	
+  
   
   updateScreenPos(you);
   
   
   //only if your not go
   if (!gameover){
-  	you.doAction(mouseHeld, mouseClicked, mx, my, keys, screenx, screeny,allWolves);	
+   you.doAction(mouseHeld, mouseClicked, mx, my, keys, screenx, screeny,allWolves); 
   }
   
   //System.out.println("" + screenx + " " + screeny);
@@ -136,7 +137,18 @@ public class GamePanel extends JPanel{
    }
    numSheepCaught = tempsheepcount;
    
-   
+   wolfTime-=1;
+   if(wolfTime<=0){
+     int numW=allWolves.size();
+     adder(allWolves,you);
+     int numWW=allWolves.size();
+     if(numW!=numWW){
+       wolfTime=500;
+     }
+     else{
+       wolfTime=0;
+     }
+   }
    for(Wolf w : allWolves){
    w.doAnyAction(you.getX(),you.getY());
    if (w.WolfBox().intersects(you.PlayerBox()) && hitTime<=0){
@@ -153,21 +165,21 @@ public class GamePanel extends JPanel{
    
    
    if (you.getHP() <= 0){
-   		gameover = true;
+     gameover = true;
    }
    
    
 
-	if (gameover){
-		
-		//you click
-		if (mouseClicked[1]){
-			mainFrame.kill();
-			MainG.main(new String[0]);
-		}
-	
-	}
-  	
+ if (gameover){
+  
+  //you click
+  if (mouseClicked[1]){
+   mainFrame.kill();
+   MainG.main(new String[0]);
+  }
+ 
+ }
+   
   
    
    
@@ -194,7 +206,7 @@ public class GamePanel extends JPanel{
   
   
 
-	  
+   
   //map
   g2d.drawImage(Bitmask.getMap(), -1*screenx, -1*screeny, null);
   
@@ -258,17 +270,17 @@ public class GamePanel extends JPanel{
   
   //draw gameover screen
   if (gameover){
-	  g2d.setColor(new Color(245, 129, 66));
-	  g2d.fillRect(0,0,800,600);
-	  g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, transparent));
-	  BufferedImage ttemp = Sprites.getGameOver();
-	  g2d.drawImage(ttemp,0,0,null);
-	  transparent += 0.01;
-	  transparent = (float)Math.min(1.0, transparent);
-	  
-	  
-	  
-	  
+   g2d.setColor(new Color(245, 129, 66));
+   g2d.fillRect(0,0,800,600);
+   g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, transparent));
+   BufferedImage ttemp = Sprites.getGameOver();
+   g2d.drawImage(ttemp,0,0,null);
+   transparent += 0.01;
+   transparent = (float)Math.min(1.0, transparent);
+   
+   
+   
+   
   }
   
   
@@ -288,6 +300,19 @@ public class GamePanel extends JPanel{
     }
     return ret;
   }
+  public void adder(ArrayList<Wolf> allWolves,Player you){
+    double degree=(double)randint(0,360);
+    degree=Math.toRadians(degree);
+    double sx=Math.cos(degree)*500;
+    double sy=Math.sin(degree)*500;
+    Wolf tempW=new Wolf(you.getX()+(int)sx,you.getY()+(int)sy);
+    if(Bitmask.isRectClear(tempW.WolfBox())){
+      allWolves.add(tempW);
+    }
+  }
+  public int randint(int low, int high){
+     return (int)(Math.random()*(high-low+1)+low);
+    }
  }
  
  
