@@ -95,7 +95,12 @@ public class Player {
      
     }
     
+    private boolean facingRight = true;
     private void move(boolean[] keys){
+     
+     int oldx = x;
+     int oldy = y;
+     
      
      if (keys[getCode('W')]){
       y -= speed;
@@ -113,6 +118,7 @@ public class Player {
      
      if (keys[getCode('A')]){
       x -= speed;
+      facingRight = false;
       if(x<halfsize){
         x=halfsize;
       }
@@ -120,10 +126,33 @@ public class Player {
      
      if (keys[getCode('D')]){
       x += speed;
+      facingRight = true;
       if(x>8000-halfsize){
         x=8000-halfsize;
       }
      }
+     
+     if (x != oldx || y != oldy){
+     	incrementframe();
+     }
+     
+     
+     
+    }
+    
+    //frame of the guy
+    private int frame = randint(0,2);//0,1,2
+    private final int BUFFERTIME = 10;
+    private int buffer = randint(0,BUFFERTIME);//up to time
+    
+    private void incrementframe(){
+    	buffer++;
+    	if (buffer == BUFFERTIME){
+    		buffer = 0;
+    		frame++;
+    	}
+    	frame = frame%3;//4 pics
+    	
     }
     
     
@@ -136,6 +165,18 @@ public class Player {
     
     
     public void draw(Graphics2D g, int screenx, int screeny){
+     
+     
+     BufferedImage temp;
+		if (facingRight){
+			temp = Sprites.getShepR(frame);
+		}
+		else{
+			temp = Sprites.getShepL(frame);	
+		}
+		g.drawImage(temp, x - temp.getWidth()/2 - screenx, y - temp.getHeight()/2 - screeny, null);
+     
+     
      
      //temp
      g.setColor(Color.RED);
@@ -150,6 +191,10 @@ public class Player {
      g.fillArc(x - shotDist - screenx, y - shotDist - screeny, 2*shotDist, 2*shotDist, rang - 15, 30);
      
      
+    }
+    
+    public int randint(int low, int high){
+    	return (int)(Math.random()*(high-low+1)+low);
     }
     
     
