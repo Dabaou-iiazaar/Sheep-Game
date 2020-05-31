@@ -24,7 +24,8 @@ public class Player {
  
  private final int speed = 4;
  private final int halfsize = 20;
- private int shotRange=30;
+ private final int shotRange=30;
+ private final int shotDist = 200;
 
  public Rectangle PlayerBox(){
   return new Rectangle (x - halfsize, y - halfsize, 2*halfsize, 2*halfsize);
@@ -59,7 +60,7 @@ public class Player {
         temp = Math.toDegrees(temp);
         temp += 36000000;
         temp %= 360;
-        if(Math.abs(temp-ang)<=shotRange){
+        if(Math.abs(temp-ang)<=shotRange && Math.hypot(x - wolfX, y - wolfY) < shotDist){
           //Shoot them.
           wolf.damage();
           System.out.println("Shot");
@@ -133,6 +134,15 @@ public class Player {
      //temp
      g.setColor(Color.RED);
      g.drawRect(x - halfsize - screenx, y - halfsize - screeny, 2*halfsize, 2*halfsize);
+     
+     g.setColor(Color.BLUE);
+     g.drawOval(x - shotDist - screenx, y - shotDist - screeny, 2*shotDist, 2*shotDist);
+     
+     g.setColor(new Color(255,0,0,100));
+     int rang = 360 - (int)ang;
+     
+     g.fillArc(x - shotDist - screenx, y - shotDist - screeny, 2*shotDist, 2*shotDist, rang - 15, 30);
+     
      
     }
     
