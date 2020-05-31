@@ -38,6 +38,35 @@ public class GamePanel extends JPanel{
   
   //test load sheeps into the world
   allSheep.add(new Sheep(100,100));
+  allSheep.add(new Sheep(1370,1130));
+  allSheep.add(new Sheep(3400,1500));
+  allSheep.add(new Sheep(3800,2200));
+  allSheep.add(new Sheep(6666,594));
+  allSheep.add(new Sheep(7700,1900));
+  allSheep.add(new Sheep(4000,3800));
+  allSheep.add(new Sheep(927,4000));
+  allSheep.add(new Sheep(7566,4644));
+  allSheep.add(new Sheep(4700,5500));
+  allSheep.add(new Sheep(5000,5600));
+  allSheep.add(new Sheep(5900,3800));
+  allSheep.add(new Sheep(1700,1460));
+  allSheep.add(new Sheep(4000,2000));
+  allSheep.add(new Sheep(6000,600));
+  allSheep.add(new Sheep(250,4000));
+  allSheep.add(new Sheep(3875,3000));
+  allSheep.add(new Sheep(4600,5000));
+  allSheep.add(new Sheep(6444,500));
+  allSheep.add(new Sheep(7200,2000));
+  allSheep.add(new Sheep(7800,200));
+  allSheep.add(new Sheep(3300,1500));
+  allSheep.add(new Sheep(2000,4050));
+  allSheep.add(new Sheep(6500,5000));
+  allSheep.add(new Sheep(4000,4500));
+  allSheep.add(new Sheep(2000,100));
+  allSheep.add(new Sheep(5000,150));
+  allSheep.add(new Sheep(7000,100));
+  allSheep.add(new Sheep(3600,5600));
+  allSheep.add(new Sheep(7000,3800));
   allWolves.add(new Wolf(500,500));
   
      
