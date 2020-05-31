@@ -102,9 +102,13 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
  public void paintComponent(Graphics g){
   Graphics2D g2d = (Graphics2D)g;
   
+  /*
   g2d.setColor(Color.WHITE);
   g2d.fillRect(0,0,800,600);
+  */
   
+  //map
+  g2d.drawImage(Bitmask.getMap(), -1*screenx, -1*screeny, null);
   
   
   
@@ -117,8 +121,8 @@ public class GamePanel extends JPanel implements KeyListener, MouseListener, Mou
   	w.draw(g2d, screenx, screeny);
   }
   
-  
-  
+  //blackness
+  g2d.drawImage(Bitmask.getDark(), -1*screenx, -1*screeny, null);
   
   
  }
