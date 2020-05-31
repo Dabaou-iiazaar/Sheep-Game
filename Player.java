@@ -24,7 +24,7 @@ public class Player {
  
  private final int speed = 4;
  private final int halfsize = 20;
- private final int shotRange=15;
+ private final int shotRange=30;
  private final int shotDist = 200;
 
  public Rectangle PlayerBox(){
